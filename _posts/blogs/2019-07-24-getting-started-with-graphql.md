@@ -11,7 +11,7 @@ date: 2019-07-23T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will guide you through GraphQL Java development
-logo: graphql/graphql.png
+logo: graphql/graphql-32.png
 ---
 
 GraphQL is query language for your Rest APIs and gives client power to select exactly what they need. It also provides server side runtime to execute the queries.

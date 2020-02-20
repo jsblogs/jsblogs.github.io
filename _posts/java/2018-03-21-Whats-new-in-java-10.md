@@ -11,7 +11,7 @@ date: 2018-03-21T00:00:00-04:00
 comments: true
 share: true
 excerpt: Finally Java10 is available for GA. This blog will cover some of the new features introduced in java 10. e.g. Local Variable Type Inference, UnmodifiableCollections in java streams etc
-logo: java/java-10.png
+logo: java/java-32.png
 ---
 
 So finally wait is over, Java 10 is in GA now. The cool feature of this build has already been in discussions. Yes, I'm talking about the `var`. In this blog I'll discuss some of the new features along with the almighty `var`.

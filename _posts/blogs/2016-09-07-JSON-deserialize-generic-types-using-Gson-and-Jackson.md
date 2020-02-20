@@ -11,6 +11,7 @@ date: 2016-09-07T14:17:25-04:00
 comments: true
 share: true
 excerpt: In this blog post we are going to learn how to deserialize json into java generic types.
+logo: java/java-32.png
 ---
 
 This blog will guide you how to deserialize json into java generic types. Suppose we have 2 json as given below.

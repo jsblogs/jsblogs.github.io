@@ -11,7 +11,7 @@ date: 2020-02-18T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will explain how to enable spring boot auto-configuration for your shared library/project.
-logo: spring/spring.png
+logo: spring/boot-32.png
 ---
 * [Introduction](#introduction)
 * [Technologies used](#tech-used)

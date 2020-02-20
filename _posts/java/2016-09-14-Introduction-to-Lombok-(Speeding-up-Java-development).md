@@ -11,6 +11,7 @@ date: 2016-09-14T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will cover Project Lombok annotations.
+logo: java/java-32.png
 ---
 
 Hi Guys, today I am going to talk about <a href="https://projectlombok.org/" target="_blank">Project Lombok</a>. This blog post is divided into 3 parts:

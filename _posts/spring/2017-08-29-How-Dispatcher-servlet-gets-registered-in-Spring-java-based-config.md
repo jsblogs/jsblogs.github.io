@@ -11,7 +11,7 @@ date: 2017-08-28T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will explain how Spring Web context gets registered in servlet context.
-logo: spring/spring.png
+logo: spring/spring-32.png
 ---
 
 Few days ago my colleague ask me about how Spring Dispatcher servlet gets registered in Java based config, as there is no XML

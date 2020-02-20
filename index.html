@@ -1,22 +1,59 @@
 ---
 layout: main
 ---
-<h1>Latest Posts</h1>
+<!--<ul class="post-list">-->
+<!--    {% for post in site.posts %}-->
+<!--    {% if post.published == true %}-->
+<!--    <li>-->
+<!--        <article>-->
+<!--            <a href="{{ site.url }}{{ post.url }}">-->
+<!--                {% if post.logo %}-->
+<!--                <img src="/images/{{ post.logo }}" style="width: 32px; height: 32px;"/>-->
+<!--                {% else %}-->
+<!--                <img src="/images/favicon/favicon-32x32.png" style="width: 32px; height: 32px;"/>-->
+<!--                {% endif %}-->
+<!--                {{ post.title }}-->
+<!--                <span class="entry-date">-->
+<!--                        <b>-->
+<!--                            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>-->
+<!--                        </b>-->
+<!--                    </span>-->
+<!--            </a>-->
+<!--            {% if post.excerpt %}-->
+<!--            <span class="excerpt">-->
+<!--                            {{ post.excerpt | remove: '\[ ... \]' | remove: '\( ... \)' | markdownify | strip_html | strip_newlines | escape_once }}-->
+<!--                        </span>-->
+<!--            {% endif %}-->
+<!--        </article>-->
+<!--    </li>-->
+<!--    {% endif %}-->
+<!--    {% endfor %}-->
+<!--</ul>-->
 
-<ul>
+<ul class="post-list">
     {% for post in site.posts %}
-    <li>
-        <h2>
+    <li class="post-title-row" style="list-style: none;">
+        <h3>
             <a href="{{ post.url }}">
                 {% if post.logo %}
-                <img src="/images/{{ post.logo }}" style="width: 32px; height: 32px;"/>
+                <img src="/images/{{ post.logo }}" class="logo"/>
                 {% else %}
-                <img src="/images/favicon/favicon-32x32.png" style="width: 32px; height: 32px;"/>
+                <img src="/images/favicon/favicon-32x32.png" class="logo"/>
                 {% endif %}
                 {{ post.title }}
+                <span class="entry-date">
+                <b>
+                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                </b>
+            </span>
             </a>
-        </h2>
-        <p>{{ post.excerpt }}</p>
+        </h3>
+
+        {% if post.excerpt %}
+        <span class="excerpt">
+            {{ post.excerpt | remove: '\[ ... \]' | remove: '\( ... \)' | markdownify | strip_html | strip_newlines | escape_once }}
+        </span>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
