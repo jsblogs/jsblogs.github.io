@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=b802896184cb2a658b965a56c4ddb3b5f5957423">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Introduction to Lombok (Speeding-up Java development) | JSBlogs</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Introduction to Lombok (Speeding-up Java development)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog post will cover Project Lombok annotations." />
+<meta property="og:description" content="This blog post will cover Project Lombok annotations." />
+<link rel="canonical" href="http://0.0.0.0:4000/java/2016/09/14/Introduction-to-Lombok-(Speeding-up-Java-development)" />
+<meta property="og:url" content="http://0.0.0.0:4000/java/2016/09/14/Introduction-to-Lombok-(Speeding-up-Java-development)" />
+<meta property="og:site_name" content="JSBlogs" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-14T09:30:00+05:30" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/java/2016/09/14/Introduction-to-Lombok-(Speeding-up-Java-development)"},"url":"http://0.0.0.0:4000/java/2016/09/14/Introduction-to-Lombok-(Speeding-up-Java-development)","headline":"Introduction to Lombok (Speeding-up Java development)","dateModified":"2016-09-14T09:30:00+05:30","datePublished":"2016-09-14T09:30:00+05:30","description":"This blog post will cover Project Lombok annotations.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <small class="date">14 September 2016</small>
+        <h1>Introduction to Lombok (Speeding-up Java development)</h1>
+
+        <p class="view"></p>
+        
+        <small class="tags"><tag><i class="fa fa-tag"></i>JAVA</tag><tag><i class='fa fa-tag'></i>LOMBOK</tag></small>
+        
+    </div>
+</header>
+
+<div class="container">
+    <section id="main_content">
+        <p>Hi Guys, today I am going to talk about <a href="https://projectlombok.org/" target="_blank">Project Lombok</a>. This blog post is divided into 3 parts:</p>
+
+<ol>
+  <li>Introduction</li>
+  <li>Setup (Using IntelliJ idea)</li>
+  <li>Lombok Annotations</li>
+</ol>
+
+<h3 id="1-introduction">1. Introduction</h3>
+<p>Lombok is java library which helps in reducing boilerplate code. So that you are more focused on you actual code. e.g. A Simple POJO class consist of properties, getters/setter (, Constructors), so here lombok will help you in auto generation of Getter/Setters (and Constructors) by just adding an annotation.</p>
+
+<h3 id="2-setup">2. Setup</h3>
+
+<ol>
+  <li>
+    <p>Check your Idea build number. Go to <strong>Help</strong> -&gt; <strong>About</strong></p>
+
+    <p><img src="/images/java/lombok/about.png" alt="About" class="img-responsive" /></p>
+  </li>
+  <li>
+    <p>Download Lombok plugin for Idea IntelliJ <a href="https://plugins.jetbrains.com/idea/plugin/6317-lombok-plugin" target="_blank">https://plugins.jetbrains.com/plugin/6317</a> as per your build number.</p>
+  </li>
+  <li>
+    <p>Goto <strong>File</strong> -&gt; <strong>Settings</strong> -&gt; Type Plugins in search text box at top left.</p>
+
+    <p><img src="/images/java/lombok/settings.png" alt="Plugin Settings" class="img-responsive" /></p>
+  </li>
+  <li>Now click <strong>Install plugin from disk</strong>. button and select the downloaded Lombok Plugin.</li>
+  <li>You are done now</li>
+</ol>
+
+<blockquote>
+  <p>In case you are using eclipse please refer to <a href="https://standardofnorms.wordpress.com/2013/05/10/reducing-java-boilerplate-code-with-lombok-with-eclipse-installation/" target="_blank">This Blog Post</a>.</p>
+</blockquote>
+
+<h3 id="3-lombok-annotations">3. Lombok Annotations</h3>
+<p>Lombok has many different types of annotations for different tasks. You can view the <a href="https://projectlombok.org/features/index.html" target="_blank">full list of annontations here</a>. In this blog we will discuss following annotations.</p>
+
+<ol>
+  <li>@Getter/@Setter</li>
+  <li>@ToString and @EqualsAndHashCode</li>
+  <li>@NonNull</li>
+  <li>@NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor</li>
+  <li>@Data</li>
+  <li>@Value</li>
+  <li>@Builder</li>
+  <li>@Cleanup</li>
+</ol>
+
+<p>At first you need to add lombok dependency in your classpath. If you are using maven then add bellow dependency in your pom.xml.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=maven_dependency.xml"> </script></p>
+
+<p>Gradle user will add below dependency in build.gradle file.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=gradle_dependency.gradle"> </script></p>
+
+<h4 id="1-gettersetter">1. @Getter/@Setter</h4>
+<p>Everyone is familier with Getters/Setters in normal pojo. Generating getter/setter is not a big task, these days IDE is smart enough and it can generate those for you, but it increases your LOC and managing them could be a bit cumbersome. Lombok helps you in generating getter/setter by just adding <code class="language-plaintext highlighter-rouge">@Getter</code> and <code class="language-plaintext highlighter-rouge">@Setter</code>. By default generated methods type is public but you can change the type by overriding value property of @Getter/@Setter which takes AccessLevel enum type. Available AccessLevel enum values are [PUBLIC, MODULE, PROTECTED, PACKAGE, PRIVATE, NONE]. If you set value to <code class="language-plaintext highlighter-rouge">AccessLevel.NONE</code> then no getter/setter will be generated.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterLombok.java"> </script></p>
+
+<p>You can add these annotations on Class level too. It will generate getters for all fields and setters for all non-final and non-static fields.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterLombokClassLevel.java"> </script></p>
+
+<p>Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterNormal.java"> </script></p>
+
+<p class="notice"><strong>Note:</strong> <code class="language-plaintext highlighter-rouge">@Setter</code> will not work on final fields.</p>
+
+<h4 id="2-tostring-and-equalsandhashcode">2. @ToString and @EqualsAndHashCode</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@ToString</code></strong> and <strong><code class="language-plaintext highlighter-rouge">@EqualsAndHashCode</code></strong> generates <code class="language-plaintext highlighter-rouge">toString()</code>, <code class="language-plaintext highlighter-rouge">equals(Object object)</code> and <code class="language-plaintext highlighter-rouge">hashCode()</code> in our pojo. By default <code class="language-plaintext highlighter-rouge">@ToString</code> includes Classname and all non-static fields. You can specify fields in <code class="language-plaintext highlighter-rouge">of</code> property of <code class="language-plaintext highlighter-rouge">@ToString</code>. You can also exclude fields by <code class="language-plaintext highlighter-rouge">exclude</code> property.</p>
+
+<p>By default <code class="language-plaintext highlighter-rouge">@EqualsAndHashCode</code> include non-static and non-transient fields. You can include or exclude fields by providing in <code class="language-plaintext highlighter-rouge">of</code> and <code class="language-plaintext highlighter-rouge">exclude</code> property (Same as <code class="language-plaintext highlighter-rouge">@ToString</code>). It has extra property called <code class="language-plaintext highlighter-rouge">callSuper</code> which invokes superclass’s implementation of <code class="language-plaintext highlighter-rouge">hashCode()</code> and <code class="language-plaintext highlighter-rouge">equals()</code>. By default it doesn’t invoke superclass methods. You can override it by setting its value to <code class="language-plaintext highlighter-rouge">true</code>.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ToStringAndEqualsAndHashCode.java"> </script></p>
+
+<h4 id="3-nonnull">3. @NonNull</h4>
+<p>This annotation will generate null-check for any field. It can be used with Constructor args, fields or method args.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NonNullCheck.java"> </script></p>
+
+<p>Above code is equvalant to</p>
+
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NonNullCheckNormal.java"> </script>
+
+<h4 id="4-noargsconstructor-requiredargsconstructor-and-allargsconstructor">4. @NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@NoArgsConstructor</code></strong> will generate default constructor. If your class contains final fields, then a compilation error will be generated. So if you want to generate default constructor with default values for final fields set <strong>force=true</strong> <code class="language-plaintext highlighter-rouge">@NoArgsConstructor(force = true)</code>.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NoArgsConstructor.java"> </script></p>
+
+<p>Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NoArgsConstructorNormal.java"> </script></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">@RequiredArgsConstructor</code></strong> will generate constructor, if your class contains final fields or any field marked with <code class="language-plaintext highlighter-rouge">@lombok.NotNull</code> then it’ll generate parameterized constructor and those fields will be added in constructor args and null check will be added in construtor.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=RequiredArgsConstructor.java"> </script></p>
+
+<p>Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=RequiredArgsConstructorNormal.java"> </script></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">@AllArgsConstructor</code></strong> will generate parameterized constructor with all fields as constructor args.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=AllArgsConstructor.java"> </script></p>
+
+<p>Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=AllArgsConstructorNormal.java"> </script></p>
+
+<p class="notice"><strong>Note:</strong> If you want to generate static factory method with private constructor then set <code class="language-plaintext highlighter-rouge">staticName</code> property of @xxxConstructor.</p>
+
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ConstructorWithFactoryMethod.java"> </script>
+
+<p>Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ConstructorWithFactoryMethodNormal.java"> </script></p>
+
+<h4 id="5-data">5. @Data</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@Data</code></strong> annotation can only be used with Class and it covers below annotations:</p>
+
+<ul>
+  <li>@Getter</li>
+  <li>@Setter</li>
+  <li>@RequiredArgsConstructor</li>
+  <li>@ToString</li>
+  <li>@EqualsAndHashCode</li>
+  <li>@Value
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=DataLombok.java"> </script>
+Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=DataLombokNormal.java"> </script></li>
+</ul>
+
+<h4 id="6-value">6. @Value</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@Value</code></strong> is used to create Immutable pojo. By default class and all fields made final and no setters will be generated. Just like <code class="language-plaintext highlighter-rouge">@Data</code> it also generates <code class="language-plaintext highlighter-rouge">toString()</code>, <code class="language-plaintext highlighter-rouge">hashCode()</code> and <code class="language-plaintext highlighter-rouge">equals()</code>. If you don’t want to make a field final then mark it with <code class="language-plaintext highlighter-rouge">@NonFinal</code>.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ValueLombok.java"> </script>
+Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ValueLombokNormal.java"> </script></p>
+
+<h4 id="7-builder">7. @Builder</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@Builder</code></strong> is used to generate builder API pattern. It generates inner class called &lt;YourClassName&gt;Builder which expose builder pattern based setters. <code class="language-plaintext highlighter-rouge">@Singular</code> is used with <code class="language-plaintext highlighter-rouge">@Builder</code> and only valid with <code class="language-plaintext highlighter-rouge">java.util.List</code> types. This annotation will add to adder methods one for single elements and another for complete collection.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=BuilderLombok.java"> </script>
+Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=BuilderLombokNormal.java"> </script></p>
+
+<h4 id="8-cleanup">8. @Cleanup</h4>
+<p><strong><code class="language-plaintext highlighter-rouge">@Cleanup</code></strong> helps in automatically close the resource. This annotation takes one parameter as closing method name. By default its value is <strong>close</strong>.
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=CleanupLombok.java"> </script>
+Above code is equvalant to
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=CleanupLombokNormal.java"> </script></p>
+
+<p>Happy Coding 😀😀😀 !!! If you have any feedback please comment down below.</p>
+
+    </section>
+</div>
+
+
+</body>
+</html>

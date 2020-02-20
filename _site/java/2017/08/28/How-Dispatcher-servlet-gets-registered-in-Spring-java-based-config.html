@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=b802896184cb2a658b965a56c4ddb3b5f5957423">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How Dispatcher servlet gets registered in Spring java based config | JSBlogs</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="How Dispatcher servlet gets registered in Spring java based config" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This blog post will explain how Spring Web context gets registered in servlet context." />
+<meta property="og:description" content="This blog post will explain how Spring Web context gets registered in servlet context." />
+<link rel="canonical" href="http://0.0.0.0:4000/java/2017/08/28/How-Dispatcher-servlet-gets-registered-in-Spring-java-based-config" />
+<meta property="og:url" content="http://0.0.0.0:4000/java/2017/08/28/How-Dispatcher-servlet-gets-registered-in-Spring-java-based-config" />
+<meta property="og:site_name" content="JSBlogs" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-28T09:30:00+05:30" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/java/2017/08/28/How-Dispatcher-servlet-gets-registered-in-Spring-java-based-config"},"url":"http://0.0.0.0:4000/java/2017/08/28/How-Dispatcher-servlet-gets-registered-in-Spring-java-based-config","headline":"How Dispatcher servlet gets registered in Spring java based config","dateModified":"2017-08-28T09:30:00+05:30","datePublished":"2017-08-28T09:30:00+05:30","description":"This blog post will explain how Spring Web context gets registered in servlet context.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <small class="date">28 August 2017</small>
+        <h1>How Dispatcher servlet gets registered in Spring java based config</h1>
+
+        <p class="view"></p>
+        
+        <small class="tags"><tag><i class="fa fa-tag"></i>JAVA</tag><tag><i class='fa fa-tag'></i>SPRING</tag><tag><i class='fa fa-tag'></i>SPRING_FRAMEWORK</tag><tag><i class='fa fa-tag'></i>SERVLET</tag></small>
+        
+    </div>
+</header>
+
+<div class="container">
+    <section id="main_content">
+        <p>Few days ago my colleague ask me about how Spring Dispatcher servlet gets registered in Java based config, as there is no XML
+  used in configuration. One thing I was (actually we both were) sure about that the class <code class="language-plaintext highlighter-rouge">AbstractAnnotationConfigDispatcherServletInitializer</code>
+  registers those servlet and all the configuration. But the question was How ?</p>
+
+<p>In order to understand that we will be going back to the servlet world. According to 
+<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContainerInitializer.html?is-external=true" target="_blank">
+Servlet Java Doc</a>, <code class="language-plaintext highlighter-rouge">ServletContainerInitializer</code> is the interface which is used to register servlets, filters and other related stuff.</p>
+
+<p>So any implementation of <code class="language-plaintext highlighter-rouge">ServletContainerInitializer</code> will be notified of web application’s startup phase using a callback method</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onStartup</span><span class="o">(</span><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Class</span><span class="o">&lt;?&gt;&gt;</span> <span class="n">c</span><span class="o">,</span> <span class="nc">ServletContext</span> <span class="n">ctx</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ServletException</span> <span class="o">{</span>
+    
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<p>In above method, you’ll notice there is a parameter <strong>c</strong>  of type Set&lt;Class&lt;?&gt; &gt;. You probably thinking why it’s there.
+So here is the another part of the magic, there is an annotation called <code class="language-plaintext highlighter-rouge">@HandlesTypes</code> used alongside with <code class="language-plaintext highlighter-rouge">ServletContainerInitializer</code>.
+ The annotation accepts array of Class as input argument.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">HandlesTypes</span> <span class="o">{</span>
+    
+    <span class="nc">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">value</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So any class (and its subclasses), which is passed as an argument to that annotation (<code class="language-plaintext highlighter-rouge">HandlesTypes</code>) will be scanned by the container and finally the collection of those class will be passed to <code class="language-plaintext highlighter-rouge">ServletContainerInitializer#onStartup()</code> during the startup time.</p>
+
+<p>Now you might be thinking, how the implementation of <code class="language-plaintext highlighter-rouge">ServletContainerInitializer</code> gets picked by the container? So the answer to that question is:</p>
+
+<p>According to the <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletContainerInitializer.html?is-external=true" target="_blank">Java Docs</a></p>
+
+<blockquote>
+  <p>Implementations of this interface must be declared by a JAR file resource located inside the META-INF/services directory and named for the fully qualified class name of this interface, and will be discovered using the runtime’s service provider lookup mechanism or a container specific mechanism that is semantically equivalent to it. In either case, ServletContainerInitializer services from web fragment JAR files excluded from an absolute ordering must be ignored, and the order in which these services are discovered must follow the application’s classloading delegation model.</p>
+</blockquote>
+
+<p>Now come back to the Spring Era and check the spring-web*.jar (just extract the jar) and look for the file <strong>javax.servlet.ServletContainerInitializer</strong>. Inside that file you’ll find a fully qualified class name as <strong>org.springframework.web.SpringServletContainerInitializer</strong>.</p>
+
+<p>That’s it, you’ve solved the mystery!!</p>
+
+<p>Now check the source code of that class (go to the <a href="https://github.com/spring-projects/spring-framework/blob/master/spring-web/src/main/java/org/springframework/web/SpringServletContainerInitializer.java" target="_blank">GitHub</a>), you’ll notice 
+ a class <code class="language-plaintext highlighter-rouge">WebApplicationInitializer</code> inside <code class="language-plaintext highlighter-rouge">@HandlesTypes</code> which is the parent class of most of the Spring’s initializers (<code class="language-plaintext highlighter-rouge">AbstractAnnotationConfigDispatcherServletInitializer</code>, <code class="language-plaintext highlighter-rouge">AbstractSecurityWebApplicationInitializer</code>).</p>
+
+<p>Now you know how to create your own initializer.</p>
+
+<p>Cheers!!! Happy coding.</p>
+
+<p>Please share your thoughts, I’ve already have comment plugin for that ☺ ☺</p>
+
+
+    </section>
+</div>
+
+
+</body>
+</html>

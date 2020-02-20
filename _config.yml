@@ -1,1 +1,15 @@
-theme: jekyll-theme-cayman
+#  https://github.com/pages-themes/cayman
+theme: jekyll-theme-hacker
+#theme: jekyll-theme-midnight
+#theme: jekyll-theme-slate
+
+title: JSBlogs
+description: Personal blogger includes blogs mostly around Java & Spring.
+search: true
+url: http://jsblogs.github.io
+
+plugins:
+  - jekyll/tagging
+
+permalink:   /:categories/:year/:month/:day/:title
+#google_analytics: <>
