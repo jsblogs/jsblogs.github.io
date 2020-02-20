@@ -1,37 +1,61 @@
-## Welcome to GitHub Pages
+---
+layout: post
+author: Jitendra Singh Bisht
+title: Custom Auto-Configuration in SpringBoot
+description: Blog about spring boot autoconfiguration
+date: 20-Feb-2020
+tags: [spring, springboot]
+---
 
-You can use the [editor on GitHub](https://github.com/jsblogs/jsblogs.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+* [Introduction](#introduction)
+* [Technologies used](#tech-used)
+* [Project Structure](#structure)
+* [Create config classes](#config-classes)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Introduction <a name="introduction"></a>
+The goal of this blog is to understand the autoconfiguration provided by SpringBoot. I'll be creating a logging library for demo purpose and that will include Auto-Configuration class to create all required beans for that library. 
 
-### Markdown
+## Technologies used <a name="tech-used"></a>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+* Java 11
+* Spring Boot 2.2.4
+* Gradle 6.0.1
 
-```markdown
-Syntax highlighted code block
+## Project Structure <a name="structure"></a>
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/bo4objeiz94xh40vme53.png)
 
-# Header 1
-## Header 2
-### Header 3
+I'm using a Gradle multi-module project. The module `logging-library` will be a shared library that will be used in the `service` module.
 
-- Bulleted
-- List
+## Create config classes <a name="config-classes"></a>
+Now It's time to create required config classes. I've created a config class called `LoggingAutoConfiguration` and marked as `@Configuration` and created one [conditional bean](#).
 
-1. Numbered
-2. List
+```java
+@Configuration
+public class LoggingAutoConfiguration {
 
-**Bold** and _Italic_ and `Code` text
+    // We can define beans here
 
-[Link](url) and ![Image](src)
+    @ConditionalOnMissingBean(Logger.class)
+    @Bean
+    public Logger getLogger() {
+        return new ConsoleLogger();
+    }
+}
+```
+As of now this class is just a normal spring configuration and to make it auto-configuration class we need to follow 2 steps:
+
+### Step 1: Create *spring.factories* file
+Create a file in`logging-library` with name `spring.factories` under `resources\META-INF\` directory.
+### Step 2: Register the auto-config class 
+Now add your configuration class into the `spring.factories`.
+```properties
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=tutorials.logging.LoggingAutoConfiguration
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+That's it!!!
 
-### Jekyll Themes
+Now we can inject the module in `service` and we don't need to specify any package to scan from `logging-library` our auto-configuration class will take care of that.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jsblogs/jsblogs.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+![Alt Text](https://dev-to-uploads.s3.amazonaws.com/i/ih7dvtntzv436823selo.png)
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+You can find the running code [here](https://github.com/jeetmp3/tutorials/tree/master/springboot-auto-config)

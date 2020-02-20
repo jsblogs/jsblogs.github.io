@@ -1,0 +1,22 @@
+---
+layout: main
+---
+<h1>Latest Posts</h1>
+
+<ul>
+    {% for post in site.posts %}
+    <li>
+        <h2>
+            <a href="{{ post.url }}">
+                {% if post.logo %}
+                <img src="/images/{{ post.logo }}" style="width: 32px; height: 32px;"/>
+                {% else %}
+                <img src="/images/favicon/favicon-32x32.png" style="width: 32px; height: 32px;"/>
+                {% endif %}
+                {{ post.title }}
+            </a>
+        </h2>
+        <p>{{ post.excerpt }}</p>
+    </li>
+    {% endfor %}
+</ul>
