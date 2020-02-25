@@ -31,6 +31,9 @@
 <div class="container">
     <section id="main_content">
         {{ content }}
+        {% if site.owner.disqus-shortname and page.comments or site.comments %}
+        {% include disqus-comments.html %}
+        {% endif %}
     </section>
 </div>
 

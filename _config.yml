@@ -13,3 +13,5 @@ plugins:
 
 permalink:   /:categories/:year/:month/:day/:title
 #google_analytics: <>
+owner:
+  disqus-shortname: blogs-jbisht-com
