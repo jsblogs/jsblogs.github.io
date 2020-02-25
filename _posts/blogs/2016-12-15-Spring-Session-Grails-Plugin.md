@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: blogs
-tags: [GRAILS, JAVA, SPRING-SESSION, JSON, JACKSON]
+tags: [grails, java, spring-session]
 date: 2016-12-15T00:00:00-04:00
 comments: true
 share: true

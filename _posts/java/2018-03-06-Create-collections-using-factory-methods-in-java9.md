@@ -6,7 +6,7 @@ type: post
 published: false
 comments: true
 category: java
-tags: [JAVA, JAVA9, COLLECTIONS]
+tags: [java, java9, collections]
 date: 2018-03-06T00:00:00-04:00
 comments: true
 share: true

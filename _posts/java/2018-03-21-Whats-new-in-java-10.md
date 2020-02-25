@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: java
-tags: [JAVA, JAVA10, OPTIONAL]
+tags: [java, java10, optional]
 date: 2018-03-21T00:00:00-04:00
 comments: true
 share: true

@@ -138,4 +138,4 @@ a { color: #ffcc00; text-decoration: solid; }
 
 .tags { margin: auto; padding: 5px; }
 
-tag { background-color: #d0d0d0; color: #151515; border-radius: 5px; margin: 5px 10px 0 0; padding: 3px; }
+tag { background-color: #d0d0d0; color: #151515; border-radius: 5px; margin: 5px 10px 0 0; padding: 3px; text-transform: uppercase; }

@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: spring
-tags: [JAVA, springboot, spring, auto-configuration]
+tags: [java, springboot, spring, auto-configuration]
 date: 2020-02-18T00:00:00-04:00
 comments: true
 share: true

@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: java
-tags: [JAVA, SPRING, SPRING_FRAMEWORK, SERVLET]
+tags: [java, spring, spring-framework, servlet]
 date: 2017-08-28T00:00:00-04:00
 comments: true
 share: true

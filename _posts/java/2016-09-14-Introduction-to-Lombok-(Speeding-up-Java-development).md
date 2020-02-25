@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: java
-tags: [JAVA, LOMBOK]
+tags: [java, lombok]
 date: 2016-09-14T00:00:00-04:00
 comments: true
 share: true

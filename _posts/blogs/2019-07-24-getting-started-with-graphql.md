@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: blogs
-tags: [GRAPHQL, API]
+tags: [java, graphql, rest-api]
 date: 2019-07-23T00:00:00-04:00
 comments: true
 share: true

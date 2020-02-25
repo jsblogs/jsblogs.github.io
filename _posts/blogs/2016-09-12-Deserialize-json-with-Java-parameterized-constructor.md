@@ -6,7 +6,7 @@ type: post
 published: true
 comments: true
 category: blogs
-tags: [JACKSON, JAVA, JSON]
+tags: [jackson, java, json]
 date: 2016-09-12T14:17:25-04:00
 comments: true
 share: true
