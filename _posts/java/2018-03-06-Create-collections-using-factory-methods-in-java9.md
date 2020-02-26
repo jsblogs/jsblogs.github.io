@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Create Collections using Factory methods in Java 9
 title: Create Collections using Factory methods in Java 9
 status: published
 type: post

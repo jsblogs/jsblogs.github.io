@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: JSON deserialize generic types using Gson and Jackson
 title: JSON deserialize generic types using Gson and Jackson
 status: published
 type: post

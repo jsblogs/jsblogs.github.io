@@ -9,9 +9,9 @@
     var disqus_config = function () {
         let url = window.location.href;
         console.log("URL: ", url);
-        console.log("Identifier: ", '{{ page.title | remove: " " | md5 }}');
+        console.log("Identifier: ", "{{ page.identifier | remove: ' ' | md5 }}");
         this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = '{{ page.title | remove: " " | md5 }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.identifier = "{{ page.identifier | remove: ' ' | md5 }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE

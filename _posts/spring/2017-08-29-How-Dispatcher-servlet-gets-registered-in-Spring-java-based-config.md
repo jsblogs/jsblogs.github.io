@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: How Dispatcher servlet gets registered in Spring java based config
 title: How Dispatcher servlet gets registered in Spring java based config
 status: published
 type: post

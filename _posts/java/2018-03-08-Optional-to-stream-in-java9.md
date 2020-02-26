@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Optional to stream in java 9
 title: Optional to stream in java 9
 status: published
 type: post

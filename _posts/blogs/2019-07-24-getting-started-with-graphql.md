@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Getting started with GraphQL (Java)
 title: Getting started with GraphQL (Java)
 status: published
 type: post

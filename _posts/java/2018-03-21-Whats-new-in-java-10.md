@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: What's new in Java 10
 title: Whats new in Java 10
 status: published
 type: post

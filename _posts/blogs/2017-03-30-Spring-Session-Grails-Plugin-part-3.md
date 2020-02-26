@@ -1,7 +1,8 @@
 ---
 layout: post
+identifier: Spring-Session Grails Plugin (Part 3)
 title: Spring-Session Grails Plugin (Part 3)
-status: unpublish
+status: published
 type: post
 published: true
 comments: true

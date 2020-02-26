@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: SpringBoot Conditional Beans
 title: SpringBoot Conditional Beans
 status: published
 type: post

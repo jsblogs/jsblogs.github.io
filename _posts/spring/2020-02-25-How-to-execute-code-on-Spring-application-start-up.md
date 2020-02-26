@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: How to execute code on Spring application start-up
 title: How to execute code on Spring application start-up
 status: published
 type: post

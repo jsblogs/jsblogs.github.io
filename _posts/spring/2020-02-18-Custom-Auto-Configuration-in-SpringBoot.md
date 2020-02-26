@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Custom Auto-Configuration in SpringBoot
 title: Custom Auto-Configuration in SpringBoot
 status: published
 type: post

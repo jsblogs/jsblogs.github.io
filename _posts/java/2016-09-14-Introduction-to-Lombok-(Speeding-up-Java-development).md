@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Introduction to Lombok (Speeding-up Java development)
 title: Introduction to Lombok (Speeding-up Java development)
 status: published
 type: post

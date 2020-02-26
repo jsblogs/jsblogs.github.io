@@ -1,5 +1,6 @@
 ---
 layout: post
+identifier: Deserialize json with Java parameterized constructor
 title: Deserialize json with Java parameterized constructor
 status: published
 type: post
