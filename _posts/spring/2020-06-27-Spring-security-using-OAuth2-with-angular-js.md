@@ -12,7 +12,7 @@ date: 2020-06-26T00:00:00-04:00
 comments: true
 share: true
 excerpt: This video tutorial demonstrates Spring-Security OAuth2 integration Angular JS 8. 
-logo: spring/spring-security.png
+logo: spring/spring-security-logo.png
 ---
 <style>
 .videoWrapper {
@@ -29,9 +29,11 @@ logo: spring/spring-security.png
     height: 100%;
 }
 </style>
-#### Sequence Diagram of OAuth2 Flow
+### Sequence Diagram of OAuth2 Flow
 
 ![OAuth2Flow](/images/spring/OAuthFlow.png){:class="img-responsive"}
+
+### Video Tutorial
 
 <div class="videoWrapper">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/znwuUgqKo_o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
