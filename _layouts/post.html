@@ -1,51 +1,27 @@
-<!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {% seo %}
-</head>
+---
+layout: default
+---
 
-<body>
-
-<header>
-    <div class="container">
-        <small class="date">{{ page.date | date: "%-d %B %Y" }}</small>
-        <div style="float: right">
-            <a href="/" >
-                <i class="fa fa-home fa-3x" aria-hidden="true"></i>
-            </a>
-        </div>
-        <h1>{{ page.title }}</h1>
-
-        <p class="view">{{ page.description }}</p>
-        {% if page.tags %}
-        <small class="tags"><tag><i class="fa fa-tag"></i>{{ page.tags | join: "</tag><tag><i class='fa fa-tag'></i>" }}</tag></small>
-        {% endif %}
-    </div>
-</header>
-
-<div class="container">
-    <section id="main_content">
-        {{ content }}
-        {% if site.owner.disqus-shortname and page.comments or site.comments %}
-        {% include disqus-comments.html %}
-        {% endif %}
-    </section>
+<div class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <span class="post-date">{{ page.date | date_to_string }}</span>
+  {{ content }}
 </div>
 
-{% if site.google_analytics %}
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', '{{ site.google_analytics }}', 'auto');
-    ga('send', 'pageview');
-</script>
+{% if site.related_posts.size >= 1 %}
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    {% for post in site.related_posts limit:3 %}
+      <li>
+        <h3>
+          <a href="{{ site.baseurl }}{{ post.url }}">
+            {{ post.title }}
+            <small>{{ post.date | date_to_string }}</small>
+          </a>
+        </h3>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endif %}
-</body>
-</html>

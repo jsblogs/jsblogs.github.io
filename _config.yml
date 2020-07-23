@@ -1,17 +1,22 @@
-#  https://github.com/pages-themes/cayman
-theme: jekyll-theme-hacker
-#theme: jekyll-theme-midnight
-#theme: jekyll-theme-slate
+# Setup
+title:               JSBlogs
+tagline:             ''
+description:         'Hi,<br/>I am Jitendra Singh Bisht and this is my personal blog. I&#x27;m a tech enthusiast and love reading about new tech.'
+url:                 https://jsblogs.github.io
+baseurl:             '' #base url
+paginate:            5
+permalink:           pretty
 
-title: JSBlogs
-description: Personal blogger includes blogs mostly around Java & Spring.
-search: true
-url: http://jsblogs.github.io
+# About/contact
+author:
+  name:              Jitendra Singh Bisht
+  url:               https://jsblogs.github.io
+  email:             jeet.mp3@gmail.com
 
+# Gems
 plugins:
-  - jekyll/tagging
+  - jekyll-paginate
 
-permalink:   /:categories/:year/:month/:day/:title
-#google_analytics: <>
-owner:
-  disqus-shortname: blogs-jbisht-com
+# Custom vars
+version:             1.1.0
+google_analytics_id: #UA-XXXX-Y
