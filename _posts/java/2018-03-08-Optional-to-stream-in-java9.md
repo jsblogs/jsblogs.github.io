@@ -1,18 +1,18 @@
 ---
 layout: post
-id: Optional to stream in java 9
+identifier: Optional to stream in java 9
 title: Optional to stream in java 9
 status: published
 type: post
 published: true
 comments: true
 category: java
-tags: [JAVA, JAVA9, COLLECTIONS, OPTIONAL]
+tags: [java, java9, collections, optional]
 date: 2018-03-08T00:00:00-04:00
 comments: true
 share: true
 excerpt: How to do optional as stream in java9
-logo: java/java-9.png
+logo: java/java-32.png
 ---
 
 Last year Java 9 launched with tons of new features. In this blog post I'm going to explain streams in `Optional` (introduced in Java8).

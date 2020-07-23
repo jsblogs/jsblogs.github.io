@@ -1,17 +1,18 @@
 ---
 layout: post
-id: Introduction to Lombok (Speeding-up Java development)
+identifier: Introduction to Lombok (Speeding-up Java development)
 title: Introduction to Lombok (Speeding-up Java development)
 status: published
 type: post
 published: true
 comments: true
 category: java
-tags: [JAVA, LOMBOK]
+tags: [java, lombok]
 date: 2016-09-14T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will cover Project Lombok annotations.
+logo: java/java-32.png
 ---
 
 Hi Guys, today I am going to talk about <a href="https://projectlombok.org/" target="_blank">Project Lombok</a>. This blog post is divided into 3 parts:

@@ -1,13 +1,13 @@
 ---
 layout: post
-id: Create Collections using Factory methods in Java 9
+identifier: Create Collections using Factory methods in Java 9
 title: Create Collections using Factory methods in Java 9
 status: published
 type: post
 published: false
 comments: true
 category: java
-tags: [JAVA, JAVA9, COLLECTIONS]
+tags: [java, java9, collections]
 date: 2018-03-06T00:00:00-04:00
 comments: true
 share: true

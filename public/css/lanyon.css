@@ -304,6 +304,11 @@ a.sidebar-nav-item:focus {
 
 .page,
 .post {
+  margin-bottom: 4em;
+}
+
+.page,
+.home-post {
   margin-bottom: 2em;
 }
 
@@ -320,6 +325,13 @@ a.sidebar-nav-item:focus {
 
 /* Meta data line below post title */
 .post-date {
+  display: block;
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  color: #9a9a9a;
+}
+
+.home-post-date {
   display: block;
   margin-top: -.5rem;
   margin-bottom: 0.20rem;

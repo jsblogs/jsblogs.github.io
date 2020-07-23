@@ -1,7 +1,7 @@
 # Setup
 title:               JSBlogs
 tagline:             ''
-description:         'Hi,<br/>I am Jitendra Singh Bisht and this is my personal blog. I&#x27;m a tech enthusiast and love reading about new tech.'
+description:         'Hi!!,<br/>I am Jitendra Singh Bisht and this is my personal blog. I&#x27;m a tech enthusiast and love reading about new tech.'
 url:                 https://jsblogs.github.io
 baseurl:             '' #base url
 paginate:            5
