@@ -1,0 +1,166 @@
+I"�<p>Hi Guys in my previous blog <a href="/blogs/2016/09/07/JSON-deserialize-generic-types-using-Gson-and-Jackson">JSON deserialize generic types using Gson and Jackson</a> I talked about how you can deserialize json in Java Generics. Now in this blog post we are going to learn how to deserialize json into Java class which doesn’t have default constructor. For this blog I am using Jackson library.</p>
+
+<p>Almost all frameworks requires default/no-argument constructor in your class. Because these frameworks use <a href="https://docs.oracle.com/javase/tutorial/reflect/" target="_blank">reflection</a> to create objects by invoking default constructor. But if there is no default constructor present in class then its hard to instantiate using reflection. Let’s assume we have a class with no-args constructor (only a parameterized constructor present) and we want to deserialize it.</p>
+<noscript><pre>package samples.jackson;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class UserProfile {
+
+    private String name;
+    private String profilePicture;
+    private String email;
+
+    public UserProfile(String name, String profilePicture, String email) {
+        this.name = name;
+        this.profilePicture = profilePicture;
+        this.email = email;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfile.java"> </script>
+
+<p>And a json file</p>
+<noscript><pre>{
+  &quot;name&quot;: &quot;Dummy&quot;,
+  &quot;profilePicture&quot;: &quot;http://picturesource&quot;,
+  &quot;email&quot;: &quot;dummy@myblogspro.com&quot;
+}</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfile.json"> </script>
+
+<p>There are two ways in Jackson to deserialize this type of classes.</p>
+
+<ol>
+  <li>Custom deserializer</li>
+  <li>Mixin Annotations</li>
+</ol>
+
+<h3 id="1-custom-deserializer">1. Custom Deserializer</h3>
+<p>In Custom Deserializer you will create a class and extend it with <code class="highlighter-rouge">com.fasterxml.jackson.databind.JsonDeserializer</code> and override its abstract method <code class="highlighter-rouge">deserialize()</code>. This class gives you full control, you’ll get json in <code class="highlighter-rouge">com.fasterxml.jackson.core.JsonParser</code>. Now you can map json properties with class properties. In my case I am creating <code class="highlighter-rouge">UserProfileDeserializer</code>.</p>
+<noscript><pre>package samples.jackson;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import java.io.IOException;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class UserProfileDeserializer extends JsonDeserializer&lt;UserProfile&gt; {
+
+    @Override
+    public UserProfile deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        String EMPTY_STRING = &quot;&quot;;
+
+        JsonNode node = p.readValueAsTree();
+        String name = node.has(&quot;name&quot;) ? node.get(&quot;name&quot;).asText() : EMPTY_STRING;
+        String profilePic = node.has(&quot;profilePicture&quot;) ? node.get(&quot;profilePicture&quot;).asText() : EMPTY_STRING;
+        String email = node.has(&quot;email&quot;) ? node.get(&quot;email&quot;).asText() : EMPTY_STRING;
+        return new UserProfile(name, profilePic, email);
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfileDeserializer.java"> </script>
+
+<p>Now we need to register above deserializer in <code class="highlighter-rouge">com.fasterxml.jackson.databind.ObjectMapper</code>. So that, while deserializing UserProfile class it use <code class="highlighter-rouge">UserProfileDeserializer</code>.</p>
+<noscript><pre>package samples.jackson;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import java.io.IOException;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class UserProfileDeserializerDemo {
+
+    public static void main(String[] args) throws IOException {
+        // MyBlogsPro is just module name. You can choose your own name
+        SimpleModule module = new SimpleModule(&quot;MyBlogsPro&quot;);
+        module.addDeserializer(UserProfile.class, new UserProfileDeserializer());
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(module);
+
+        // TODO: 12/9/16 Pass your json string/source as first parameter in below method
+        UserProfile profile = mapper.readValue(&quot;{}&quot;, UserProfile.class);
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfileDeserializerDemo.java"> </script>
+
+<blockquote>
+  <p>In above code we are adding our Deserializer in <code class="highlighter-rouge">com.fasterxml.jackson.databind.module.SimpleModule</code> and that module is registered in <code class="highlighter-rouge">com.fasterxml.jackson.databind.ObjectMapper</code>. Similarly, you can register deserializers for other classes too.</p>
+</blockquote>
+
+<h3 id="2-mixin-annotations">2. Mixin Annotations</h3>
+<p>Jackson provides another way of doing this by using <em><strong>Mixin Annotations</strong></em>. You can read about Jackson Mixin <a href="https://github.com/FasterXML/jackson-docs/wiki/JacksonMixInAnnotations" target="_blank">here</a>. In our class <code class="highlighter-rouge">UserProfile</code> there is no default constructor, it has a parameterized constructor. Let’s checkout how to create mixin for our class.</p>
+<noscript><pre>package samples.jackson;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * @author Jitendra Singh.
+ */
+public abstract class UserProfileMixin {
+
+    @JsonCreator
+    public UserProfileMixin(@JsonProperty(&quot;name&quot;) String name, @JsonProperty(&quot;profilePicture&quot;) String profilePicture,
+                            @JsonProperty(&quot;email&quot;) String email) {
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfileMixin.java"> </script>
+
+<p>That’s it !!</p>
+
+<blockquote>
+  <p>We have created a constructor same as in <code class="highlighter-rouge">UserProfile</code> class and marked it with <code class="highlighter-rouge">com.fasterxml.jackson.annotation.JsonCreator</code> annotation. This will tell <code class="highlighter-rouge">com.fasterxml.jackson.databind.ObjectMapper</code> this is how target class (<code class="highlighter-rouge">UserProfile</code>) constructor looks and constructor parameters are marked with <code class="highlighter-rouge">com.fasterxml.jackson.annotation.JsonProperty</code> annotation.</p>
+</blockquote>
+
+<p>Now checkout how to register this mixin class in <code class="highlighter-rouge">com.fasterxml.jackson.databind.ObjectMapper</code></p>
+<noscript><pre>package samples.jackson;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import java.io.IOException;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class UserProfileMixinDemo {
+
+    public static void main(String[] args) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.addMixIn(UserProfile.class, UserProfileMixin.class);
+
+        // TODO: 12/9/16 Pass your json string/source as first parameter in below method
+        UserProfile profile = mapper.readValue(&quot;{}&quot;, UserProfile.class);
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/7eff6ff303b58894715878833c381f24.js?file=UserProfileMixinDemo.java"> </script>
+
+<p>Enjoy !!!! ☺☺</p>
+:ET

@@ -1,0 +1,109 @@
+I"2<p>So finally wait is over, Java 10 is in GA now. The cool feature of this build has already been in discussions. Yes, I’m talking about the <code class="highlighter-rouge">var</code>. In this blog I’ll discuss some of the new features along with the almighty <code class="highlighter-rouge">var</code>.</p>
+
+<h3 id="1-optionalorelsethrow">1. Optional#orElseThrow()</h3>
+<p>Synonym for <code class="highlighter-rouge">Optional.get()</code> but more intuitive. It will throw <code class="highlighter-rouge">java.util.NoSuchElementException</code> same as <code class="highlighter-rouge">get()</code> but with clear understanding that if value isn’t there the method may throw an Exception, so the developer will think to handle the exceptional case as well.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">OptionalDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">perform</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calculate</span><span class="o">();</span>
+        <span class="c1">// It'll throw the exception </span>
+        <span class="nc">String</span> <span class="n">result1</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        
+        <span class="c1">// It'll also throw the exception but by it's name</span>
+        <span class="c1">// developer might think of handling the exception</span>
+        <span class="nc">String</span> <span class="n">result1</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">calculate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-copyof-in-list-set-and-map">2. copyOf() in List, Set and Map</h3>
+<p>Added copyOf() in List, Set and Map to create unmodifiableCollections() from the given collection. This method checks if collection is already is type of <code class="highlighter-rouge">java.util.ImmutableCollections.AbstractImmutableMap</code> then simply return that otherwise create a new ImmutableCollection from the given.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">UnmodifiableCollectionDemo</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">usingList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+        
+        <span class="c1">// already ImmutableCollection so simply returns</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">unmodifiable1</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+        
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">();</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        
+        <span class="c1">// Creates new ImmutableCollection and returns</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">unmodifiable</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">copyOf</span><span class="o">(</span><span class="n">list1</span><span class="o">);</span> 
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-new-methods-added-in-collectors">3. New methods added in Collectors</h3>
+<p>To collect stream result as Unmodifiable collection, 3 new methods added in <code class="highlighter-rouge">java.util.stream.Collectors</code> class.</p>
+
+<ol>
+  <li>toUnmodifiableList</li>
+  <li>toUnmodifiableSet</li>
+  <li>toUnmodifiableMap</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">StreamsDemo</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">convertToUnmodifiableCollections</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="c1">// List demo</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">toUpperCase</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toUnmodifiableList</span><span class="o">());</span>
+        
+        <span class="c1">// Set demo</span>
+        <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">toUpperCase</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toUnmodifiableSet</span><span class="o">());</span>
+        
+        <span class="c1">// Map demo</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">toUpperCase</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">totoUnmodifiableMap</span><span class="o">(</span><span class="nl">String:</span><span class="o">:</span><span class="n">toString</span><span class="o">,</span> <span class="nl">String:</span><span class="o">:</span><span class="n">length</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="4-var---local-variable-type-inference">4. var - Local Variable Type Inference</h3>
+<p>Type inference was introduced with lambdas. Now in java 10 a new keyword <code class="highlighter-rouge">var</code> introduced for local variable type inference. 
+  This will remove the ceremony code to initialize local variables and maintain the java’s static typing. Type will be 
+  inferred by the compiler at compilation time.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">varDemo</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+    
+    <span class="c1">// With var above code can be written as</span>
+    
+    <span class="kt">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> 
+    <span class="kt">var</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+    <span class="kt">var</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Type inference can only be used with local variables and once the type is inferred then cannot be changed.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">demo</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Jitendra"</span><span class="o">;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="c1">// Not allowed</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>All the methods of the target type will be accessed with the declared variable.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">demo</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Jitendra"</span><span class="o">);</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Singh"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Happy Coding 😀😀😀 !!! If you have any feedback please comment down below.</p>
+:ET

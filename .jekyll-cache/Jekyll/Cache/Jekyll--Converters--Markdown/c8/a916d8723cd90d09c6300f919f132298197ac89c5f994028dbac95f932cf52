@@ -1,0 +1,31 @@
+I";<p><a href="https://github.com/jeetmp3/spring-session" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" /></a></p>
+
+<p>In my <a href="/blogs/2016/12/15/Spring-Session-Grails-Plugin"><strong>previous blog</strong></a> I’ve explained  <a href="https://grails.org/plugin/spring-session" target="_blank"><strong>spring-session grails plugin</strong></a> along with Redis datastore. We’ve also covered Json serialization that will be almost same when you use mongo datastore. In this blog post I’ll explain how you can use MongoDB as your session store.</p>
+
+<p>To change datastore you need to add property in your <code class="highlighter-rouge">Config.groovy</code>.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">springsession</span><span class="o">.</span><span class="na">sessionStore</span><span class="o">=</span><span class="n">SessionStore</span><span class="o">.</span><span class="na">MONGO</span>
+</code></pre></div></div>
+<p>This will set MongoDB as your datastore. By default it’ll try to connect mongo running on <strong>localhost</strong> port <strong>27017</strong>. Let’s checkout the some config properties with their default values.</p>
+
+<p class="notice"><strong><em>Note:</em></strong> <em>Some of the common properties explained in previous block. Those will work same for mongo datastore</em>.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">hostName</span><span class="o">=</span><span class="s2">"localhost"</span> <span class="c1">// MongoDB host server. Default is localhost.</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">port</span><span class="o">=</span><span class="mi">27017</span> <span class="c1">// MongoDB port. Default is 27017.</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">database</span><span class="o">=</span><span class="s2">"spring-session"</span> <span class="c1">// MongoDB database to store sessions. Default is spring-session.</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">username</span><span class="o">=</span><span class="s2">""</span> <span class="c1">// MongoDB username. Default is "".</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">password</span><span class="o">=</span><span class="s2">""</span> <span class="c1">// MongoDB password. Default is "".</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">collectionName</span><span class="o">=</span><span class="s2">"sessions"</span> <span class="c1">// Mongo collection name to store session data. Default is "sessions".</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">replicaSet</span><span class="o">=[</span> <span class="o">[:]</span> <span class="o">]</span> <span class="c1">// MongoDB replica set if any. It includes list of maps [ [hostName: 'localhost', port: 27017] ]  Default is [[:]].</span>
+<span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">jackson</span><span class="o">.</span><span class="na">modules</span><span class="o">=[]</span> <span class="c1">// Jackson module class if any. Default is empty list</span>
+</code></pre></div></div>
+
+<p class="notice"><strong><em>Note:</em></strong> <em>MongoDB is a NoSQL and schemaless database. So you don’t need to create database and collections for the session. It’ll auto created when session will created.</em></p>
+
+<p>By default it uses Java serialization. To use Json Serialization please visit to <a href="/blogs/2016/12/15/Spring-Session-Grails-Plugin"><strong>first blog</strong></a> of this series. First 2 steps will be same but in 3<sup>rd</sup> step <strong><em>Register my module class with spring-session plugin</em></strong> you will have to use mongo specific <code class="highlighter-rouge">jackson.modules</code> property.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">springsession</span><span class="o">.</span><span class="na">mongo</span><span class="o">.</span><span class="na">jackson</span><span class="o">.</span><span class="na">modules</span> <span class="o">=</span> <span class="o">[</span><span class="s1">'demo.SimpleModule'</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>That’s it in this post guys. In my next blog I’ll explain how to use JDBC datastore with spring-session grails plugin.</p>
+:ET

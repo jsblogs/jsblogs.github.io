@@ -5,7 +5,8 @@ description:         'Hi!!,<br/>I am Jitendra Singh Bisht and this is my persona
 url:                 https://jsblogs.github.io
 baseurl:             '' #base url
 paginate:            5
-permalink:           pretty
+#permalink:           pretty
+permalink:            /:categories/:year/:month/:day/:title
 
 # About/contact
 author:
@@ -20,4 +21,22 @@ plugins:
 
 # Custom vars
 version:             1.1.0
-google_analytics_id: #UA-XXXX-Y
+owner:
+  disqus-shortname: blogs-jbisht-com
+  twitter: JitendraBisht3
+  facebook: 100001590673679
+  github: jeetmp3
+  stackexchange: http://stackoverflow.com/users/1739365/jitendra
+  linkedin: jitendra-bisht-a7a25845
+  instagram: jeet.mp3
+  flickr: #username
+  tumblr: #username
+  pinterest: #username
+  weibo: #userid
+  google:
+    plus: JITTUBISHT
+    analytics: UA-83820107-1
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
