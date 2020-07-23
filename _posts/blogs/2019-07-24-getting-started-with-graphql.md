@@ -57,7 +57,7 @@ Below code will demonstrate you how to integrate GraphQL in Spring application. 
 
 The code structure will look like
 
-![GraphQL code structure](/images/graphql/graphql-code-structure.png)
+![GraphQL code structure](/public/images/graphql/graphql-code-structure.png)
 
 ##### Define schema file users.graphql
 
@@ -148,24 +148,24 @@ GraphiQL resource links
 
 Add your /graphql controller's endpoint in GraphiQL and start executing query
 
-![Query hello](/images/graphql/gqlq1.png)
+![Query hello](/public/images/graphql/gqlq1.png)
 
 We can ask the response fields and graphql will serve only selected fields.
 1. Query users for name only
 
-![Name only](/images/graphql/gqlq2.png)
+![Name only](/public/images/graphql/gqlq2.png)
 
 2. Query users for all fields
 
-![All fields](/images/graphql/gqlq3.png)
+![All fields](/public/images/graphql/gqlq3.png)
 
 We can ask for multiple queries in single request
 
-![Multiple queries](/images/graphql/gqlq4.png)
+![Multiple queries](/public/images/graphql/gqlq4.png)
 
 Even same query with multiple times with alias
 
-![Duplicate queries](/images/graphql/gqlq5.png)
+![Duplicate queries](/public/images/graphql/gqlq5.png)
 
 You can find complete code [here](https://github.com/jeetmp3/tutorials/tree/master/graphql-java-intro)
 

@@ -28,13 +28,13 @@ Lombok is java library which helps in reducing boilerplate code. So that you are
 
 1. Check your Idea build number. Go to __Help__ -> __About__
 
-    ![About](/images/java/lombok/about.png){:class="img-responsive"}
+    ![About](/public/images/java/lombok/about.png){:class="img-responsive"}
 
 2. Download Lombok plugin for Idea IntelliJ <a href="https://plugins.jetbrains.com/idea/plugin/6317-lombok-plugin" target="_blank">https://plugins.jetbrains.com/plugin/6317</a> as per your build number.
 
 3. Goto __File__ -> __Settings__ -> Type Plugins in search text box at top left.
 
-    ![Plugin Settings](/images/java/lombok/settings.png){:class="img-responsive"}
+    ![Plugin Settings](/public/images/java/lombok/settings.png){:class="img-responsive"}
 
 4. Now click __Install plugin from disk__. button and select the downloaded Lombok Plugin.
 5. You are done now

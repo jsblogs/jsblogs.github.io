@@ -31,7 +31,7 @@ logo: spring/spring-security-logo.png
 </style>
 ### Sequence Diagram of OAuth2 Flow
 
-![OAuth2Flow](/images/spring/OAuthFlow.png){:class="img-responsive"}
+![OAuth2Flow](/public/images/spring/OAuthFlow.png){:class="img-responsive"}
 
 ### Video Tutorial
 

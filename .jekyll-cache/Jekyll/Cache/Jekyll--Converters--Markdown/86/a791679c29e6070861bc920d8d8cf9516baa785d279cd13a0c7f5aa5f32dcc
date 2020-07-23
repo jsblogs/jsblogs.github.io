@@ -1,0 +1,722 @@
+I"�\<p>Hi Guys, today I am going to talk about <a href="https://projectlombok.org/" target="_blank">Project Lombok</a>. This blog post is divided into 3 parts:</p>
+
+<ol>
+  <li>Introduction</li>
+  <li>Setup (Using IntelliJ idea)</li>
+  <li>Lombok Annotations</li>
+</ol>
+
+<h3 id="1-introduction">1. Introduction</h3>
+<p>Lombok is java library which helps in reducing boilerplate code. So that you are more focused on you actual code. e.g. A Simple POJO class consist of properties, getters/setter (, Constructors), so here lombok will help you in auto generation of Getter/Setters (and Constructors) by just adding an annotation.</p>
+
+<h3 id="2-setup">2. Setup</h3>
+
+<ol>
+  <li>
+    <p>Check your Idea build number. Go to <strong>Help</strong> -&gt; <strong>About</strong></p>
+
+    <p><img src="/public/images/java/lombok/about.png" alt="About" class="img-responsive" /></p>
+  </li>
+  <li>
+    <p>Download Lombok plugin for Idea IntelliJ <a href="https://plugins.jetbrains.com/idea/plugin/6317-lombok-plugin" target="_blank">https://plugins.jetbrains.com/plugin/6317</a> as per your build number.</p>
+  </li>
+  <li>
+    <p>Goto <strong>File</strong> -&gt; <strong>Settings</strong> -&gt; Type Plugins in search text box at top left.</p>
+
+    <p><img src="/public/images/java/lombok/settings.png" alt="Plugin Settings" class="img-responsive" /></p>
+  </li>
+  <li>Now click <strong>Install plugin from disk</strong>. button and select the downloaded Lombok Plugin.</li>
+  <li>You are done now</li>
+</ol>
+
+<blockquote>
+  <p>In case you are using eclipse please refer to <a href="https://standardofnorms.wordpress.com/2013/05/10/reducing-java-boilerplate-code-with-lombok-with-eclipse-installation/" target="_blank">This Blog Post</a>.</p>
+</blockquote>
+
+<h3 id="3-lombok-annotations">3. Lombok Annotations</h3>
+<p>Lombok has many different types of annotations for different tasks. You can view the <a href="https://projectlombok.org/features/index.html" target="_blank">full list of annontations here</a>. In this blog we will discuss following annotations.</p>
+
+<ol>
+  <li>@Getter/@Setter</li>
+  <li>@ToString and @EqualsAndHashCode</li>
+  <li>@NonNull</li>
+  <li>@NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor</li>
+  <li>@Data</li>
+  <li>@Value</li>
+  <li>@Builder</li>
+  <li>@Cleanup</li>
+</ol>
+
+<p>At first you need to add lombok dependency in your classpath. If you are using maven then add bellow dependency in your pom.xml.</p>
+<noscript><pre>&lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+            &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+            &lt;version&gt;1.16.10&lt;/version&gt;
+        &lt;/dependency&gt;
+&lt;/dependencies&gt;</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=maven_dependency.xml"> </script>
+
+<p>Gradle user will add below dependency in build.gradle file.</p>
+<noscript><pre>dependencies {
+    compile(&quot;org.projectlombok:lombok:1.16.10&quot;)
+}</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=gradle_dependency.gradle"> </script>
+
+<h4 id="1-gettersetter">1. @Getter/@Setter</h4>
+<p>Everyone is familier with Getters/Setters in normal pojo. Generating getter/setter is not a big task, these days IDE is smart enough and it can generate those for you, but it increases your LOC and managing them could be a bit cumbersome. Lombok helps you in generating getter/setter by just adding <code class="highlighter-rouge">@Getter</code> and <code class="highlighter-rouge">@Setter</code>. By default generated methods type is public but you can change the type by overriding value property of @Getter/@Setter which takes AccessLevel enum type. Available AccessLevel enum values are [PUBLIC, MODULE, PROTECTED, PACKAGE, PRIVATE, NONE]. If you set value to <code class="highlighter-rouge">AccessLevel.NONE</code> then no getter/setter will be generated.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class GetterAndSetterLombok {
+    
+    @Getter
+    @Setter
+    private String name;
+
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
+    private int age;
+
+    @Getter
+    @Setter(AccessLevel.NONE)
+    private boolean isMale;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterLombok.java"> </script>
+
+<p>You can add these annotations on Class level too. It will generate getters for all fields and setters for all non-final and non-static fields.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * @author Jitendra Singh.
+ */
+@Getter
+@Setter
+public class GetterAndSetterLombokClassLevel {
+    
+    private String name;
+
+    @Setter(AccessLevel.PROTECTED)
+    private int age;
+
+    @Setter(AccessLevel.NONE)
+    private boolean isMale;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterLombokClassLevel.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class GetterAndSetterNormal {
+    
+    private String name;
+    private int age;
+    private boolean isMale;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    protected void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isMale() {
+        return isMale;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=GetterAndSetterNormal.java"> </script>
+
+<p class="notice"><strong>Note:</strong> <code class="highlighter-rouge">@Setter</code> will not work on final fields.</p>
+
+<h4 id="2-tostring-and-equalsandhashcode">2. @ToString and @EqualsAndHashCode</h4>
+<p><strong><code class="highlighter-rouge">@ToString</code></strong> and <strong><code class="highlighter-rouge">@EqualsAndHashCode</code></strong> generates <code class="highlighter-rouge">toString()</code>, <code class="highlighter-rouge">equals(Object object)</code> and <code class="highlighter-rouge">hashCode()</code> in our pojo. By default <code class="highlighter-rouge">@ToString</code> includes Classname and all non-static fields. You can specify fields in <code class="highlighter-rouge">of</code> property of <code class="highlighter-rouge">@ToString</code>. You can also exclude fields by <code class="highlighter-rouge">exclude</code> property.</p>
+
+<p>By default <code class="highlighter-rouge">@EqualsAndHashCode</code> include non-static and non-transient fields. You can include or exclude fields by providing in <code class="highlighter-rouge">of</code> and <code class="highlighter-rouge">exclude</code> property (Same as <code class="highlighter-rouge">@ToString</code>). It has extra property called <code class="highlighter-rouge">callSuper</code> which invokes superclass’s implementation of <code class="highlighter-rouge">hashCode()</code> and <code class="highlighter-rouge">equals()</code>. By default it doesn’t invoke superclass methods. You can override it by setting its value to <code class="highlighter-rouge">true</code>.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+/**
+ * @author Jitendra Singh.
+ */
+@ToString
+@EqualsAndHashCode
+public class ToStringAndEqualsAndHashCode {
+
+    private String name;
+    private int age;
+
+    private transient String tr = &quot;Transient Field&quot;;
+    private final String CONSTANT = &quot;CONSTANT&quot;;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ToStringAndEqualsAndHashCode.java"> </script>
+
+<h4 id="3-nonnull">3. @NonNull</h4>
+<p>This annotation will generate null-check for any field. It can be used with Constructor args, fields or method args.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.NonNull;
+import lombok.Setter;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class NonNullCheck {
+
+    @NonNull @Setter
+    private String name;
+
+    public NonNullCheck(@NonNull String city) {
+
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NonNullCheck.java"> </script>
+
+<p>Above code is equvalant to</p>
+
+<noscript><pre>package samples.lombok;
+
+import lombok.NonNull;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class NonNullCheckNormal {
+
+    private String name;
+
+    public void setName(String name) {
+        if(name == null)
+            throw new NullPointerException(&quot;name&quot;);
+        this.name = name;
+    }
+
+    public NonNullCheckNormal(String city) {
+        if(city == null)
+            throw new NullPointerException(&quot;city&quot;);
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NonNullCheckNormal.java"> </script>
+
+<h4 id="4-noargsconstructor-requiredargsconstructor-and-allargsconstructor">4. @NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor</h4>
+<p><strong><code class="highlighter-rouge">@NoArgsConstructor</code></strong> will generate default constructor. If your class contains final fields, then a compilation error will be generated. So if you want to generate default constructor with default values for final fields set <strong>force=true</strong> <code class="highlighter-rouge">@NoArgsConstructor(force = true)</code>.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.ToString;
+
+/**
+ * @author Jitendra Singh.
+ */
+@ToString
+@lombok.NoArgsConstructor(force = true)
+public class NoArgsConstructor {
+
+    private final String name;
+    private int age;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NoArgsConstructor.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class NoArgsConstructorNormal {
+
+    private final String name;
+    private int age;
+
+    public NoArgsConstructorNormal() {
+        this.name = null;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;NoArgsConstructorNormal(&quot; +
+                &quot;name=&quot; + name +
+                &quot;, age=&quot; + age +
+                &#39;)&#39;;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=NoArgsConstructorNormal.java"> </script>
+
+<p><strong><code class="highlighter-rouge">@RequiredArgsConstructor</code></strong> will generate constructor, if your class contains final fields or any field marked with <code class="highlighter-rouge">@lombok.NotNull</code> then it’ll generate parameterized constructor and those fields will be added in constructor args and null check will be added in construtor.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.ToString;
+
+/**
+ * @author Jitendra Singh.
+ */
+@lombok.RequiredArgsConstructor
+@ToString
+public class RequiredArgsConstructor {
+
+    private final String name;
+    private int age;
+    @lombok.NonNull
+    private String city;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=RequiredArgsConstructor.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class RequiredArgsConstructorNormal {
+
+    private final String name;
+    private int age;
+    private String city;
+
+    public RequiredArgsConstructorNormal(String name, String city) {
+        if(city == null) {
+            throw new NullPointerException(&quot;city&quot;);
+        }
+        this.city = city;
+        this.name = name;
+
+    }
+
+    @Override
+    public String toString() {
+        return &quot;RequiredArgsConstructorNormal(&quot; +
+                &quot;name=&quot; + name +
+                &quot;, age=&quot; + age +
+                &quot;, city=&quot; + city +
+                &#39;)&#39;;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=RequiredArgsConstructorNormal.java"> </script>
+
+<p><strong><code class="highlighter-rouge">@AllArgsConstructor</code></strong> will generate parameterized constructor with all fields as constructor args.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.NonNull;
+
+/**
+ * @author Jitendra Singh.
+ */
+@lombok.AllArgsConstructor
+public class AllArgsConstructor {
+
+    private final String name;
+    @NonNull
+    private String city;
+    private int age;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=AllArgsConstructor.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class AllArgsConstructorNormal {
+
+    private final String name;
+    private String city;
+    private int age;
+
+    public AllArgsConstructorNormal(String name, String city, int age) {
+        if(city == null) {
+            throw new NullPointerException(&quot;city&quot;);
+        }
+        this.city = city;
+        this.name = name;
+        this.age = age;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=AllArgsConstructorNormal.java"> </script>
+
+<p class="notice"><strong>Note:</strong> If you want to generate static factory method with private constructor then set <code class="highlighter-rouge">staticName</code> property of @xxxConstructor.</p>
+
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+@lombok.AllArgsConstructor(staticName = &quot;getInstance&quot;)
+public class ConstructorWithFactoryMethod {
+
+    private String name;
+    private int age;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ConstructorWithFactoryMethod.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class ConstructorWithFactoryMethodNormal {
+
+    private String name;
+    private int age;
+
+    private ConstructorWithFactoryMethodNormal(String name, int age) {
+    }
+
+    public static ConstructorWithFactoryMethodNormal getInstance(String name, int age) {
+        return new ConstructorWithFactoryMethodNormal(name, age);
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ConstructorWithFactoryMethodNormal.java"> </script>
+
+<h4 id="5-data">5. @Data</h4>
+<p><strong><code class="highlighter-rouge">@Data</code></strong> annotation can only be used with Class and it covers below annotations:</p>
+
+<ul>
+  <li>@Getter</li>
+  <li>@Setter</li>
+  <li>@RequiredArgsConstructor</li>
+  <li>@ToString</li>
+  <li>@EqualsAndHashCode</li>
+  <li>@Value</li>
+</ul>
+<noscript><pre>package samples.lombok;
+
+import lombok.Data;
+
+/**
+ * @author Jitendra Singh.
+ */
+@Data
+public class DataLombok {
+
+    private final String name;
+    private int age;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=DataLombok.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class DataLombokNormal {
+
+    private final String name;
+    private int age;
+
+    public DataLombokNormal(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DataLombokNormal that = (DataLombokNormal) o;
+
+        if (age != that.age) return false;
+        return name.equals(that.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + age;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;DataLombokNormal(&quot; +
+                &quot;name=&quot; + name +
+                &quot;, age=&quot; + age +
+                &#39;)&#39;;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=DataLombokNormal.java"> </script>
+
+<h4 id="6-value">6. @Value</h4>
+<p><strong><code class="highlighter-rouge">@Value</code></strong> is used to create Immutable pojo. By default class and all fields made final and no setters will be generated. Just like <code class="highlighter-rouge">@Data</code> it also generates <code class="highlighter-rouge">toString()</code>, <code class="highlighter-rouge">hashCode()</code> and <code class="highlighter-rouge">equals()</code>. If you don’t want to make a field final then mark it with <code class="highlighter-rouge">@NonFinal</code>.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.Value;
+import lombok.experimental.NonFinal;
+
+/**
+ * @author Jitendra Singh.
+ */
+@Value
+public class ValueLombok {
+
+    String name;
+    int age;
+    @NonFinal String city;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ValueLombok.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+/**
+ * @author Jitendra Singh.
+ */
+public final class ValueLombokNormal {
+
+    private final String name;
+    private final int age;
+    private String city;
+
+    public ValueLombokNormal(String name, int age, String city) {
+        this.name = name;
+        this.age = age;
+        this.city = city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ValueLombokNormal that = (ValueLombokNormal) o;
+
+        if (age != that.age) return false;
+        if (!name.equals(that.name)) return false;
+        return city.equals(that.city);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + age;
+        result = 31 * result + city.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;ValueLombokNormal(&quot; +
+                &quot;name=&quot; + name +
+                &quot;, age=&quot; + age +
+                &quot;, city=&quot; + city +
+                &#39;)&#39;;
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=ValueLombokNormal.java"> </script>
+
+<h4 id="7-builder">7. @Builder</h4>
+<p><strong><code class="highlighter-rouge">@Builder</code></strong> is used to generate builder API pattern. It generates inner class called &lt;YourClassName&gt;Builder which expose builder pattern based setters. <code class="highlighter-rouge">@Singular</code> is used with <code class="highlighter-rouge">@Builder</code> and only valid with <code class="highlighter-rouge">java.util.List</code> types. This annotation will add to adder methods one for single elements and another for complete collection.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.Builder;
+import lombok.Singular;
+
+import java.util.List;
+
+/**
+ * @author Jitendra Singh.
+ */
+@Builder
+public class BuilderLombok {
+
+    private String name;
+    private int age;
+    @Singular private List&lt;String&gt; addresses;
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=BuilderLombok.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.Builder;
+import lombok.Singular;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Jitendra Singh.
+ */
+@Builder
+public class BuilderLombokNormal {
+
+    private String name;
+    private int age;
+    @Singular private List&lt;String&gt; addresses;
+
+    private BuilderLombokNormal(String name, int age, List&lt;String&gt; addresses) {
+        this.name = name;
+        this.age = age;
+        this.addresses = addresses;
+    }
+
+    public static class BuilderLombokNormalBuilder {
+        private String name;
+        private int age;
+        private List&lt;String&gt; addresses;
+
+        public BuilderLombokNormalBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public BuilderLombokNormalBuilder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public BuilderLombokNormalBuilder addresses(String address) {
+            if(addresses == null) {
+                addresses = new ArrayList&lt;&gt;();
+            }
+            this.addresses.add(address);
+            return this;
+        }
+
+        public BuilderLombokNormalBuilder addresses(List&lt;String&gt; address) {
+            if(addresses == null) {
+                addresses = new ArrayList&lt;&gt;();
+            }
+            this.addresses.addAll(address);
+            return this;
+        }
+
+        public BuilderLombokNormal build() {
+            return new BuilderLombokNormal(name, age, addresses);
+        }
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=BuilderLombokNormal.java"> </script>
+
+<h4 id="8-cleanup">8. @Cleanup</h4>
+<p><strong><code class="highlighter-rouge">@Cleanup</code></strong> helps in automatically close the resource. This annotation takes one parameter as closing method name. By default its value is <strong>close</strong>.</p>
+<noscript><pre>package samples.lombok;
+
+import lombok.Cleanup;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class CleanupLombok {
+    public static void main(String[] args) throws IOException {
+        @Cleanup() FileInputStream inputStream = new FileInputStream(&quot;/tmp/file.txt&quot;);
+        OutputStream outputStream = System.out;
+        int i = -1;
+        while((i = inputStream.read()) != -1) {
+            outputStream.write(i);
+        }
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=CleanupLombok.java"> </script>
+
+<p>Above code is equvalant to</p>
+<noscript><pre>package samples.lombok;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+/**
+ * @author Jitendra Singh.
+ */
+public class CleanupLombokNormal {
+    public static void main(String[] args) throws IOException {
+        FileInputStream inputStream = new FileInputStream(&quot;/tmp/file.txt&quot;);
+        try {
+            OutputStream outputStream = System.out;
+            int i = -1;
+            while((i = inputStream.read()) != -1) {
+                outputStream.write(i);
+            }
+        } finally {
+            if(inputStream != null) {
+                inputStream.close();
+            }
+        }
+    }
+}
+</pre></noscript>
+<script src="https://gist.github.com/jeetmp3/fa6d9327b670071f11b417ca9693029f.js?file=CleanupLombokNormal.java"> </script>
+
+<p>Happy Coding 😀😀😀 !!! If you have any feedback please comment down below.</p>
+:ET
