@@ -4,7 +4,15 @@ layout: default
 
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date_to_string }}</span>
+  <span class="post-date-inline">{{ page.date | date_to_string }}</span>
+  <span style="margin-right: 0.5em; margin-left: 0.5em;">|</span>
+  {% for tag in page.tags %}
+  <span>
+    <a class="inline-tag" href="/tags#{{ tag | slugify }}">
+		{{ tag }}
+	</a>
+  </span>
+  {% endfor %}
   {{ content }}
 </div>
 
