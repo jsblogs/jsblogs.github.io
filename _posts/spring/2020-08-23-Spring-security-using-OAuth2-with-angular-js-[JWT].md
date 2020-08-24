@@ -17,7 +17,7 @@ logo: spring/spring-security-logo.png
 
 * [Introduction](#intro)
 * [Technologies used](#tech-used)
-* [Sequence Diagram of OAuth2 Flow](diagram)
+* [Sequence Diagram of OAuth2 Flow](#diagram)
 * [The JwtTokenStore](#token-store)
 
 ## Introduction <a name="intro"></a>
