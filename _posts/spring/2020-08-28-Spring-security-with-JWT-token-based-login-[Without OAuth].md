@@ -29,6 +29,7 @@ logo: spring/spring-security-logo.png
     height: 100%;
 }
 </style>
+<img src="/public/images/spring/OAuthFlow.png" height="1" width="0">
 * [Introduction](#intro)
 * [Video Tutorial](#video-link)
 * [Source Code](#source-code)
