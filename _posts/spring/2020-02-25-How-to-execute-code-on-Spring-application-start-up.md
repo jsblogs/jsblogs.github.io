@@ -19,8 +19,6 @@ logo: spring/boot-32.png
 * [Application Events](#app-events)
 * [ApplicationRunner](#app-runner)
 
-<img src="/public/images/spring/OAuthFlow.png" height="1" width="1">
-
 ## Introduction <a name="intro"></a>
 Have you ever encountered a situation where you've to perform some tasks immediately after the Spring/SpringBoot application starts.  i.e. 
 Initialize some data into database, initialize application level constants, make an API call, etc. 
