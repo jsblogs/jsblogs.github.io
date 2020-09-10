@@ -22,8 +22,10 @@
 {% endif %}
 {% if page.image %}
     <meta content="{{ site.url }}/public/images/{{ page.image }}" property="og:image">
+    <link rel="image_src" href="{{ site.url }}/public/images/{{ page.image }}" />
 {% else %}
     <meta content="{{ site.url }}/public/images/jsblogs.png" property="og:image">
+    <link rel="image_src" href="{{ site.url }}/public/images/{{ page.image }}" />
 {% endif %}
 
 {% if page.tags %}
