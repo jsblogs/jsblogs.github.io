@@ -1,32 +1,44 @@
-<meta content="{{ site.title }}" property="og:site_name">
-{% if page.title %}
-    <meta content="{{ page.title }}" property="og:title">
-{% else %}
-    <meta content="{{ site.title }}" property="og:title">
+{% if page.type %}
+    <meta prefix="og: http://ogp.me/ns#" property="og:type" content="{{page.type}}" />
 {% endif %}
+
 {% if page.title %}
-    <meta content="article" property="og:type">
+    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="{{page.title}}" />
+    <meta name="twitter:title" content="{{page.title}}" />
 {% else %}
-    <meta content="website" property="og:type">
+    <meta prefix="og: http://ogp.me/ns#" property="og:title" content="{{site.title}}" />
+    <meta name="twitter:title" content="{{site.title}}" />
 {% endif %}
+
 {% if page.excerpt %}
-    <meta content="{{ page.excerpt }}" property="og:description">
+    <meta prefix="og: http://ogp.me/ns#" property="og:description" content="{{ page.excerpt }}" />
+    <meta name="twitter:description" content="{{ page.excerpt }}" />
 {% else %}
-    <meta content="{{ site.description }}" property="og:description">
+    <meta prefix="og: http://ogp.me/ns#" property="og:description" content="{{ site.description }}" />
+    <meta name="twitter:description" content="{{ site.description }}" />
 {% endif %}
+
+{% if page.image %}
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ site.url }}/public/images/{{ page.image }}" />
+    <meta name="twitter:card" content="{{ site.url }}/public/images/{{ page.image }}" />
+{% else %}
+    <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ site.url }}/public/images/jsblogs.png" />
+    <meta name="twitter:card" content="{{ site.url }}/public/images/jsblogs.png" />
+{% endif %}
+
 {% if page.url %}
-    <meta content="{{ page.url | absolute_url }}" property="og:url">
+    <meta prefix="og: http://ogp.me/ns#" property="og:url" content="{{ page.url | absolute_url }}" />
+    <meta name="twitter:domain" content="{{ page.url | absolute_url }}" />
 {% endif %}
+
+{% if page.url %}
+    <meta name="twitter:site" content="{{site.url}}" />
+{% endif %}}
+
 {% if page.date %}
     <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
 {% endif %}
-{% if page.image %}
-    <meta content="{{ site.url }}/public/images/{{ page.image }}" property="og:image">
-    <link rel="image_src" href="{{ site.url }}/public/images/{{ page.image }}" />
-{% else %}
-    <meta content="{{ site.url }}/public/images/jsblogs.png" property="og:image">
-    <link rel="image_src" href="{{ site.url }}/public/images/jsblogs.png" />
-{% endif %}
+
 
 {% if page.tags %}
     {% for tag in page.tags %}
