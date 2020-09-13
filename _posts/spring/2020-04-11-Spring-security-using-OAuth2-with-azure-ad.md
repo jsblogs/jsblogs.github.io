@@ -7,7 +7,7 @@ type: post
 published: true
 comments: true
 category: spring
-tags: [springboot, spring-security, oauth2, azure-ad]
+tags: [java, springboot, spring-security, oauth2, azure-ad]
 date: 2020-04-11T00:00:00-04:00
 comments: true
 share: true

@@ -7,7 +7,7 @@ type: post
 published: true
 comments: true
 category: spring
-tags: [springboot, spring-security, oauth2, angular-js]
+tags: [java, springboot, spring-security, oauth2, angular-js]
 date: 2020-06-26T00:00:00-04:00
 comments: true
 share: true
