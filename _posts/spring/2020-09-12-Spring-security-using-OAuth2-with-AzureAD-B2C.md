@@ -32,11 +32,11 @@ image: cards/security-azure-ad-b2c.jpg
 
 * [Introduction](#intro)
 * [Video Tutorial](#tutorial)
-* [Introduction](#intro)
 
 ## Introduction <a name="intro"></a>
 Microsoft Azure provides capability to integrate social-logins in the application by using AzureAD B2C. 
  The good thing about that is you'll have single Authorization server (Azure) and different IDP like Google, Facebook, GitHub or any custom IDP.
+
 To achieve this we need to create 1 B2C tenant and configure *App Registration*, *IDP*, and create *UserFlow*. The below video tutorial covers all these 
 steps and guide you how to integrate Azure B2C with spring security.  
 
