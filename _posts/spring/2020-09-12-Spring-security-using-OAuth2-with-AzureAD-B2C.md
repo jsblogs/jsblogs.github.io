@@ -7,7 +7,7 @@ type: post
 published: true
 comments: true
 category: spring
-tags: [java, springboot, spring-security, oauth2, azure-ad, azure-b2c]
+tags: [java, springboot, spring-security, oauth2, azure-b2c]
 date: 2020-09-12T00:00:00-04:00
 comments: true
 share: true
