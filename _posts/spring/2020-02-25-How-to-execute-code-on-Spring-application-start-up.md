@@ -27,8 +27,8 @@ There are several ways to achieve it. Here I'm gonna discuss:
 2. ApplicationRunner
 
 ## Technologies used <a name="tech-used"></a>
-1. Java 11
-2. Spring Boot 2.2.4
+1. [Java 11](https://jsblogs.github.io/tags#java)
+2. [Spring Boot 2.2.4](https://jsblogs.github.io/tags#springboot)
 3. Gradle 6.0.1
 
 ### Application events <a name="app-events"></a>
