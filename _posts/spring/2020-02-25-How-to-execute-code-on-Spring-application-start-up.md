@@ -20,10 +20,9 @@ logo: spring/boot-32.png
 * [ApplicationRunner](#app-runner)
 
 ## Introduction <a name="intro"></a>
-Have you ever encountered a situation where you've to perform some tasks immediately after the Spring/SpringBoot application starts.  i.e. 
-Initialize some data into database, initialize application level constants, make an API call, etc. 
+Have you ever encountered a situation where you've to perform some tasks immediately after the Spring/SpringBoot application starts? i.e. Initialize some data into the database, initialize application-level constants, make an API call, etc.
 
-There are several ways to achieve it. Here I'm gonna discuss about:
+There are several ways to achieve it. Here I'm gonna discuss:
 1. Application events
 2. ApplicationRunner
 
@@ -33,7 +32,7 @@ There are several ways to achieve it. Here I'm gonna discuss about:
 3. Gradle 6.0.1
 
 ### Application events <a name="app-events"></a>
-The Spring framework triggers various events. For our use case we'll be more interested in `ContextStartedEvent` and `ContextRefreshedEvent`.
+The Spring framework triggers various events. For our use case, we'll be more interested in `ContextStartedEvent` and `ContextRefreshedEvent`.
 __ContextStartedEvent__ event triggered at the time of context gets started.
 __ContextRefreshedEvent__ event triggered at the time of context gets started or refreshed.
 
@@ -99,7 +98,7 @@ public class Config {
 ApplicationRunner provides `ApplicationArguments` in the run method which is used to get command line arguments by invoking `getSourceArgs()`.
 You can also get the parsed arguments using this class. i.e.
 
-Let's say you've passed command line arguments like
+Let's say you've passed command-line arguments like
 `--source /usr/local --print-only --target /tmp/local`
 
 So the method call to 
