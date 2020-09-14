@@ -20,10 +20,12 @@
 
 {% if page.image %}
     <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ site.url }}/public/images/{{ page.image }}" />
-    <meta name="twitter:card" content="{{ site.url }}/public/images/{{ page.image }}" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ site.url }}/public/images/{{ page.image }}">
 {% else %}
     <meta prefix="og: http://ogp.me/ns#" property="og:image" content="{{ site.url }}/public/images/jsblogs.png" />
-    <meta name="twitter:card" content="{{ site.url }}/public/images/jsblogs.png" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ site.url }}/public/images/jsblogs.png">
 {% endif %}
 
 {% if page.url %}
