@@ -25,16 +25,15 @@ In my old blogs I talked about how to configure [AzureAD]({{ site.baseurl }}{% l
 Below are the few steps to configure AppRegistration.
 
 ## Setup AppRegistration <a name="app-registration">
-   Just like in other OAuth2 providers we have to register an application, similarly, we'll be creating one app registraion here.
-    
-    1. Login to [https://portal.azure.com](https://portal.azure.com) 
-    2. In the search box type __Azure Active Directory__
-    ![Search Azure Active Directory](/public/images/blogs/azure/search-aad.png)
-    3. Find and navigate to __App Registrations__ on the left panel.
-    ![App Registrations](/public/images/blogs/azure/app-registrations.png)
-    4. Click on __+ New Registration__
-    5. Add application name in the given form and choose the supported account types. In my case I've selected the __Accounts in this organizational directory only__ because I'm creating the single tenant access only. If you want you app can access multiple tenant then you can choose the other options provided on the form.
-    ![App Registrations](/public/images/blogs/azure/registration-form.png)
-    6. Once the app is created then you'll be redirect to App Overview page. Now here you need to find and navigate to the API Permission on the left panel.
-    ![App Registrations](/public/images/blogs/azure/app-overview.png)
-    7. 
+Just like in other OAuth2 providers we have to register an application, similarly, we'll be creating one app registraion here.
+1. Login to [https://portal.azure.com](https://portal.azure.com) 
+2. In the search box type __Azure Active Directory__
+ ![Search Azure Active Directory](/public/images/blogs/azure/search-aad.png)
+3. Find and navigate to __App Registrations__ on the left panel.
+ ![App Registrations](/public/images/blogs/azure/app-registrations.png)
+4. Click on __+ New Registration__
+5. Add application name in the given form and choose the supported account types. In my case I've selected the __Accounts in this organizational directory only__ because I'm   creating the single tenant access only. If you want you app can access multiple tenant then you can choose the other options provided on the form.
+ ![App Registrations](/public/images/blogs/azure/registration-form.png)
+6. Once the app is created then you'll be redirect to App Overview page. Now here you need to find and navigate to the API Permission on the left panel.
+ ![App Registrations](/public/images/blogs/azure/app-overview.png)
+7. 
