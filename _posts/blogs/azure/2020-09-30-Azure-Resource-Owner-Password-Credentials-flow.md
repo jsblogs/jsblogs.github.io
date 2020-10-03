@@ -7,7 +7,7 @@ type: post
 published: true
 comments: true
 category: azure
-tags: [java, azure, azure-ad, graph-api]
+tags: [java, azure, azure-ad, ROPC]
 date: 2020-09-30T00:00:00-04:00
 comments: true
 share: true
@@ -18,7 +18,8 @@ image: cards/azure-ad-graph-api.jpg
 * [Introduction](#intro)
 * [Setup AppRegistration](#app-registration)
 * [Create Test User](#test-user)
-* [Video Tutorial](#tutorial)
+* [ROPC Call](#ropc)
+* [References](#ref)
 
 ## Introduction <a name="intro"></a>
 Azure provides ROPC (Resource Owner Password Credentials) flow where the Application exchanges user credentials for accessToken and refresh token. There are few important points to consider when planning to use ROPC flow.
@@ -47,9 +48,32 @@ Just like in other OAuth2 providers we have to register an application, similarl
  
  Congratulations you've configured the AppRegistration and setup the ROPC sucessfully.
  
- ## Create Test User <a name="test-user"></a>
- To test the flow I'll be creating one user as my email id doesn't belongs to the tenant in which I've created the app registration.
- 1. To create user type __Azure Active Directory__ in the search box and click on the users in the left panel. (Make sure you're on the same tenant in where you've created the App Registration).
+## Create Test User <a name="test-user"></a>
+To test the flow I'll be creating one user as my email id doesn't belongs to the tenant in which I've created the app registration.
+1. To create user type __Azure Active Directory__ in the search box and click on the users in the left panel. (Make sure you're on the same tenant in where you've created the App Registration).
  ![Add User](/public/images/blogs/azure/add-user.png)
-2. Click __New User__ and then select __Create User__. Once the user is created then open a new tab and try to login into https://portal.azure.com and change the password if you've choosen the Auto generate password option.
+2. Click __New User__ and then select __Create User__. Once the user is created then open a new tab and try to login into [https://portal.azure.com](https://portal.azure.com) and change the password if you've choosen the Auto generate password option.
 ![Add User](/public/images/blogs/azure/add-user.png)
+
+## ROPC Call<a name="ropc"></a>
+Now it's time to mkae the api call to get the token.
+Use below API to get the token
+
+URI https://login.microsoftonline.com/<tenant-id>/oauth2/token
+Method - POST
+Form urlencoded body
+grant_type=password
+username=<user>
+password=<password>
+resource=<clientId>
+client_id=<clientId>
+
+Goto App Registartion overview page to get __tenantId__ and __clientId__ details.
+![Token](/public/images/blogs/azure/token.png)
+
+## References <a name="ref"></a>
+Azure ROPC resources
+* [Getting started with Azure AD]({{ site.baseurl }}{% link _posts/spring/2020-04-11-Spring-security-using-OAuth2-with-azure-ad.md %})
+* [Custom IDP in Auzre B2C]({{ site.baseurl }}{% link _posts/spring/2020-09-12-Spring-security-using-OAuth2-with-AzureAD-B2C.md %})
+* [Configure the resource owner password credentials flow in Azure AD B2C](https://docs.microsoft.com/en-us/azure/active-directory-b2c/configure-ropc?tabs=app-reg-ga)
+* [Microsoft identity platform and the OAuth 2.0 client credentials flow](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
