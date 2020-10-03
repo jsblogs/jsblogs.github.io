@@ -59,15 +59,16 @@ To test the flow I'll be creating one user as my email id doesn't belongs to the
 Now it's time to mkae the api call to get the token.
 Use below API to get the token
 
-URI https://login.microsoftonline.com/&lt;tenant-id&rt;/oauth2/token
+```
+URI https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/token
 Method - POST
 Form urlencoded body
 grant_type=password
-username=&lt;user&rt;
-password=&lt;password&rt;
-resource=&lt;clientId&rt;
-client_id=&lt;clientId&rt;
-
+username=&lt;user&gt;
+password=&lt;password&gt;
+resource=&lt;clientId&gt;
+client_id=&lt;clientId&gt;
+```
 Goto App Registartion overview page to get __tenantId__ and __clientId__ details.
 ![Token](/public/images/blogs/azure/token.png)
 
