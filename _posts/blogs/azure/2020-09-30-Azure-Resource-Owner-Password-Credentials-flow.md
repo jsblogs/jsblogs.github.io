@@ -12,7 +12,7 @@ date: 2020-09-30T00:00:00-04:00
 comments: true
 share: true
 excerpt: This blog post will demonstrates how to setup Resource Owner Password Credentials flow in Azure.
-image: cards/azure-ad-graph-api.jpg
+image: cards/azure-ropc.jpg
 ---
 
 * [Introduction](#intro)
