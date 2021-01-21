@@ -2,7 +2,7 @@
 title:               JSBlogs
 tagline:             ''
 description:         'Hi!!,<br/>I am Jitendra Singh Bisht and this is my personal blog. I&#x27;m a tech enthusiast and love reading about new tech.'
-url:                 https://jsblogs.github.io
+url:                 https://blogs.jsbisht.com
 baseurl:             '' #base url
 paginate:            5
 #permalink:           pretty
@@ -11,7 +11,7 @@ permalink:            /:categories/:year/:month/:day/:title
 # About/contact
 author:
   name:              Jitendra Singh Bisht
-  url:               https://jsblogs.github.io
+  url:               https://blogs.jsbisht.com
   email:             jeet.mp3@gmail.com
 
 # Gems
