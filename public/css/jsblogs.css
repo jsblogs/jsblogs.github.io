@@ -87,3 +87,7 @@ a {
     flex-flow: row;
     justify-content: space-between;
 }
+
+.profile-logo {
+    border-radius: 50%;
+}

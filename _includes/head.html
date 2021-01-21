@@ -1,8 +1,12 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  {% if jekyll.environment != "development" %}
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self' 'https://fonts.googleapis.com' 'https://maxcdn.bootstrapcdn.com';">
-  {% endif %}
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src
+    'self'
+    data:
+    'sha256-bEkupBMNI0iXZepZaGubFyZCmt5UzQq6kMZd9DskBeA='
+    https://maxcdn.bootstrapcdn.com/ https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com/;
+  ">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <meta name="author" content="Jitendra Singh Bisht">
   {% include seo.html %}
@@ -35,11 +39,9 @@
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', '{{ site.owner.google.analytics }}', 'auto');
     ga('send', 'pageview');
   </script>
   {% endif %}
-  <script data-ad-client="ca-pub-4789547379583496" async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
