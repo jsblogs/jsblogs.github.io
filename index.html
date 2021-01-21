@@ -29,13 +29,7 @@ pagination:
           </div>
 
           <div class="post-footer-item">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            {% assign words = post.content | number_of_words %}
-            {% if words < 360 %}
-            1 min read
-            {% else %}
-            {{ words | divided_by:180 }} mins read
-            {% endif %}
+            {% include read-time.html text=post.content %}
           </div>
 
           <div class="post-footer-item">

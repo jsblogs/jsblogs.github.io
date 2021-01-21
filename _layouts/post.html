@@ -6,6 +6,8 @@ layout: default
   <h1 class="post-title">{{ page.title }}</h1>
   <span class="post-date-inline">{{ page.date | date_to_string }}</span>
   <span style="margin-right: 0.5em; margin-left: 0.5em;">|</span>
+  <span class="post-date-inline">{% include read-time.html text=content %}</span>
+  <span style="margin-right: 0.5em; margin-left: 0.5em;">|</span>
   {% for tag in page.tags %}
   <span>
     <a class="inline-tag" href="/tags#{{ tag | slugify }}">
