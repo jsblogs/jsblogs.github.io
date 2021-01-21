@@ -36,3 +36,7 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
+
+webrick:
+  headers:
+    X-Frame-Options: "DENY"
