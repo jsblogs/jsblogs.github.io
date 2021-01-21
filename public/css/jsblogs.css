@@ -56,3 +56,34 @@ small {
 a {
     text-decoration: none !important;
 }
+
+.home-post {
+    margin-bottom: 0;
+    border-top: 1px dashed #868e96;
+    padding: 1em 0;
+}
+
+.read-more {
+    display: block;
+    text-decoration: underline !important;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.home-post:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.post-footer-item {
+    margin: 0;
+    font-size: 15px;
+    color: #515151 !important;
+}
+
+.post-footer {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
