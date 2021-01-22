@@ -14,7 +14,7 @@ share: true
 excerpt: This blog post will demonstrates Spring-Security OAuth2 integration with Microsoft Azure AD. 
 logo: spring/boot-32.png
 ---
-<style>
+<style nonce="jsbl0g5">
 .videoWrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */

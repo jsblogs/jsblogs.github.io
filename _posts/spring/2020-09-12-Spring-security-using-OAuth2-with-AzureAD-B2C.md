@@ -14,7 +14,7 @@ share: true
 excerpt: This blog post will explain how to configure AzureAD B2C tenant and integrate the same with Spring-Security OAuth2. 
 image: cards/security-azure-ad-b2c.jpg
 ---
-<style>
+<style nonce="jsbl0g5">
 .videoWrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */

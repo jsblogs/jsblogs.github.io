@@ -45,7 +45,7 @@ The following part removes dulpicated tags and invalid tags like blank tag.
 
 {% endcomment %}
 {% for tag in tags %}
-<h3 id="{{ tag | slugify }}" style="text-transform: capitalize;">{{ tag }}</h3>
+<h3 id="{{ tag | slugify }}" class="capitalized-text">{{ tag }}</h3>
 <ul>
 	{% for post in site.posts %}
 	{% if post.tags contains tag %}

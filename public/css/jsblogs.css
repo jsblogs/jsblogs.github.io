@@ -91,3 +91,19 @@ a {
 .profile-logo {
     border-radius: 50%;
 }
+
+.capitalized-text {
+    text-transform: capitalize;
+}
+
+.post-time-tags-separator {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+
+.fork-me-on-github {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}

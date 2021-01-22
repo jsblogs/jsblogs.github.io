@@ -14,7 +14,7 @@ share: true
 excerpt: This video tutorial demonstrates Spring-Security OAuth2 integration Angular JS 8. 
 logo: spring/spring-security-logo.png
 ---
-<style>
+<style nonce="jsbl0g5">
 .videoWrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */

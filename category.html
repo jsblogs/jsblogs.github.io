@@ -29,7 +29,7 @@ title: Categories
 {% endfor %}
 
 {% for c in categories %}
-<h3 id="{{ c | slugify }}" style="text-transform: capitalize;">{{ c }}</h3>
+<h3 id="{{ c | slugify }}" class="capitalized-text">{{ c }}</h3>
 <ul>
     {% for post in site.posts %}
     {% if post.category == c %}

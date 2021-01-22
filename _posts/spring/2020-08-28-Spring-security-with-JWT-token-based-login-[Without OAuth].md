@@ -14,7 +14,7 @@ share: true
 excerpt: This video tutorial demonstrates JWT based login using spring-security. 
 logo: spring/spring-security-logo.png
 ---
-<style>
+<style nonce="jsbl0g5">
 .videoWrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
