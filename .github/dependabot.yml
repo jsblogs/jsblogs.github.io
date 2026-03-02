@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # lodash fix (4.17.23) doesn't exist yet; it's a transitive dev dep only
+      - dependency-name: "lodash"
+        update-types: ["version-update:semver-patch"]
