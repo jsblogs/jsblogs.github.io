@@ -78,6 +78,36 @@
       @apply border-s-accent/80 wrap-break-word opacity-80;
     }
 
+    blockquote.callout {
+      @apply my-4 rounded-md border-s-4 px-4 py-3 opacity-100;
+      background-color: var(--callout-note-bg);
+      border-left-color: var(--callout-note-border);
+    }
+
+    blockquote.callout p {
+      @apply m-0 text-foreground;
+    }
+
+    blockquote.callout-important {
+      background-color: var(--callout-important-bg);
+      border-left-color: var(--callout-important-border);
+    }
+
+    blockquote.callout-tip {
+      background-color: var(--callout-tip-bg);
+      border-left-color: var(--callout-tip-border);
+    }
+
+    blockquote.callout-caution {
+      background-color: var(--callout-caution-bg);
+      border-left-color: var(--callout-caution-border);
+    }
+
+    blockquote.callout-note {
+      background-color: var(--callout-note-bg);
+      border-left-color: var(--callout-note-border);
+    }
+
     details {
       @apply inline-block cursor-pointer text-foreground select-none [&_p]:hidden [&_ul]:my-0!;
     }
