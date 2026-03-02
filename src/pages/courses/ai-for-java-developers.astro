@@ -1,0 +1,205 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+import {
+  COURSE_META,
+  COURSE_MODULES,
+  COURSE_POST_LIST,
+  type ModuleStatus,
+} from "@/data/courses/ai-for-java-developers";
+
+const pageDesc =
+  "A hands-on course for Java developers to build intelligent applications with Spring AI, RAG, and agents. 8 modules. 40 posts. One real project.";
+
+const statusLabel: Record<ModuleStatus, string> = {
+  available: "Available",
+  "in-progress": "In Progress",
+  "coming-soon": "Coming Soon",
+};
+
+const totalPosts = COURSE_POST_LIST.length;
+const publishedPosts = COURSE_POST_LIST.filter(p => p.status === "published").length;
+---
+
+<Layout
+  title={`${COURSE_META.title} | ${SITE.title}`}
+  description={pageDesc}
+>
+  <Header />
+  <main id="main-content" class="app-layout pb-20">
+
+    <!-- Hero -->
+    <section class="border-b border-border pt-10 pb-10">
+      <p class="mb-3 text-xs font-semibold tracking-widest uppercase text-accent">
+        Free Course
+      </p>
+      <h1 class="text-3xl font-bold sm:text-4xl leading-tight">
+        AI Engineering for<br />Java Developers
+      </h1>
+      <p class="mt-4 max-w-2xl text-base opacity-80 leading-relaxed">
+        A hands-on, story-driven course that takes you from zero AI knowledge to shipping
+        production-ready AI features with Spring AI. One real project, eight modules,
+        no data science background required.
+      </p>
+
+      <!-- Stats row -->
+      <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+        <span class="flex items-center gap-1.5">
+          <span class="text-accent">◆</span>
+          {COURSE_MODULES.length} Modules
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="text-accent">◆</span>
+          {totalPosts} Posts
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="text-accent">◆</span>
+          Java 21+ · Spring Boot · Spring AI
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="text-accent">◆</span>
+          {publishedPosts} of {totalPosts} published
+        </span>
+      </div>
+
+      <div class="mt-7">
+        <a
+          href="/blog/ai-for-java-devs-why-now"
+          class="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
+        >
+          Start Module 0
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- The Story -->
+    <section class="border-b border-border py-8">
+      <h2 class="mb-3 text-lg font-semibold">The story behind this course</h2>
+      <p class="max-w-2xl leading-relaxed opacity-80">
+        Meet <strong>Dev</strong> — a mid-level Java developer at an e-commerce startup who
+        gets asked to add AI features to the platform with no prior AI experience.
+        Every module follows Dev through a real challenge, with real Spring AI code and
+        a working result at the end. By Module 7, Dev ships a production-ready AI support
+        assistant. By the end of the course, so will you.
+      </p>
+    </section>
+
+    <!-- What you will build -->
+    <section class="border-b border-border py-8">
+      <h2 class="mb-4 text-lg font-semibold">What you will build</h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {[
+          { icon: "🔍", label: "RAG-powered Q&A", desc: "Answers product and policy questions from real company data, not hallucinations" },
+          { icon: "💬", label: "Conversation memory", desc: "Remembers what was said earlier in the session across multiple turns" },
+          { icon: "⚡", label: "Live tool calling", desc: "Checks real-time order status by calling your platform's own APIs" },
+          { icon: "🛡️", label: "Production-ready", desc: "Tracing, cost controls, testing, safety guardrails, and error handling" },
+        ].map(({ icon, label, desc }) => (
+          <div class="rounded-lg border border-border p-4">
+            <p class="font-semibold">{icon} {label}</p>
+            <p class="mt-1 text-sm opacity-70">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Prerequisites -->
+    <section class="border-b border-border py-8">
+      <h2 class="mb-3 text-lg font-semibold">Prerequisites</h2>
+      <ul class="space-y-1 text-sm opacity-80">
+        <li>✓ Comfortable with Java 17+ (we use Java 21 features like records)</li>
+        <li>✓ Experience building Spring Boot REST APIs</li>
+        <li>✓ Basic familiarity with Maven and YAML configuration</li>
+        <li>✓ An OpenAI API key <em>or</em> Ollama installed locally (Module 2 covers both)</li>
+        <li class="opacity-50">✗ No prior AI, ML, or data science experience needed</li>
+      </ul>
+    </section>
+
+    <!-- Modules -->
+    <section class="pt-8">
+      <h2 class="mb-6 text-lg font-semibold">Course Modules</h2>
+      <div class="space-y-5">
+        {COURSE_MODULES.map(mod => (
+          <div class="rounded-lg border border-border p-5">
+            <!-- Module header -->
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div class="flex items-start gap-4">
+                <span
+                  class="shrink-0 text-4xl font-bold leading-none tabular-nums"
+                  style="color: var(--color-accent); opacity: 0.25;"
+                >
+                  {String(mod.id).padStart(2, "0")}
+                </span>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="font-semibold text-base">{mod.title}</h3>
+                    <span
+                      class:list={[
+                        "inline-block rounded-full px-2.5 py-0.5 text-xs font-medium",
+                        mod.status === "available"
+                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+                          : mod.status === "in-progress"
+                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400"
+                            : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400",
+                      ]}
+                    >
+                      {statusLabel[mod.status]}
+                    </span>
+                  </div>
+                  <p class="mt-1 text-sm opacity-60">{mod.desc}</p>
+                </div>
+              </div>
+              <span class="shrink-0 text-xs opacity-40 mt-1">
+                {mod.posts.length} posts
+              </span>
+            </div>
+
+            <!-- Post list -->
+            <ul class="space-y-2 ps-0">
+              {mod.posts.map((post, idx) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <span
+                    class:list={[
+                      "mt-0.5 shrink-0 text-xs tabular-nums",
+                      post.status === "published" ? "text-accent" : "opacity-30",
+                    ]}
+                  >
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  {post.status === "published" ? (
+                    <a
+                      href={`/blog/${post.slug}`}
+                      class="text-accent hover:underline underline-offset-2 leading-snug"
+                    >
+                      {post.title}
+                    </a>
+                  ) : (
+                    <span class="opacity-40 leading-snug">{post.title}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="mt-12 rounded-lg border border-border p-8 text-center">
+      <h2 class="mb-2 text-xl font-bold">Ready to start?</h2>
+      <p class="mb-6 text-sm opacity-70">
+        Module 0 is live. No sign-up required — just read, code, and build.
+      </p>
+      <a
+        href="/blog/ai-for-java-devs-why-now"
+        class="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
+      >
+        Begin the course →
+      </a>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
