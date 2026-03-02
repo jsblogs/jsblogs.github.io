@@ -4,3 +4,8 @@ _site/
 .jekyll-cache
 .jekyll-cache/*
 *.lock
+.astro/
+.gitignore.swp
+dist/
+node_modules/
+public/pagefind/
