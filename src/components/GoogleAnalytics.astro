@@ -1,0 +1,19 @@
+---
+// Replace G-XXXXXXXXXX with your real GA4 Measurement ID from Google Analytics
+const GA_MEASUREMENT_ID = "G-0HCNHR6YG7";
+---
+
+<!-- Google tag (gtag.js) -->
+<script
+  is:inline
+  async
+  src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+></script>
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", GA_MEASUREMENT_ID);
+</script>
