@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/jeetmp3",
   desc: "A blog about Java, Spring, Security, and more by Jitendra Singh Bisht.",
   title: "JSBlogs",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "og-image.png",
   lightAndDarkMode: true,
   postPerIndex: 5,
   postPerPage: 5,
