@@ -32,21 +32,37 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: `${title}`,
-  image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: `${author}`,
-      ...(profile && { url: profile }),
-    },
-  ],
-};
+const isArticle = !!pubDatetime;
+
+const structuredData = isArticle
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: title,
+      description: description,
+      image: `${socialImageURL}`,
+      datePublished: pubDatetime.toISOString(),
+      ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+      author: [{ "@type": "Person", name: author, ...(profile && { url: profile }) }],
+      publisher: {
+        "@type": "Organization",
+        name: SITE.title,
+        logo: {
+          "@type": "ImageObject",
+          url: `${new URL(SITE.ogImage ? `/${SITE.ogImage}` : "/og.png", Astro.site)}`,
+        },
+      },
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${canonicalURL}` },
+      inLanguage: SITE.lang ?? "en",
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: SITE.title,
+      description: description,
+      url: `${Astro.site}`,
+      inLanguage: SITE.lang ?? "en",
+    };
 ---
 
 <!doctype html>
@@ -75,9 +91,12 @@ const structuredData = {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={isArticle ? "article" : "website"} />
+    <meta property="og:site_name" content={SITE.title} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -86,10 +105,13 @@ const structuredData = {
     <!-- Article Published/Modified time -->
     {
       pubDatetime && (
-        <meta
-          property="article:published_time"
-          content={pubDatetime.toISOString()}
-        />
+        <>
+          <meta
+            property="article:published_time"
+            content={pubDatetime.toISOString()}
+          />
+          <meta property="article:author" content={author} />
+        </>
       )
     }
     {
@@ -124,7 +146,8 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#212737" />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
