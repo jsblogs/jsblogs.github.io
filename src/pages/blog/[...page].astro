@@ -11,7 +11,12 @@ import getSortedPosts from "@/utils/getSortedPosts";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const { COURSE_POST_LIST } = await import("@/data/courses/ai-for-java-developers");
+  const coursePostSlugs = new Set(COURSE_POST_LIST.map(p => p.slug));
+  const posts = await getCollection(
+    "blog",
+    ({ id, data }) => !data.draft && !coursePostSlugs.has(id)
+  );
   return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 

@@ -17,7 +17,10 @@ export interface CourseModule {
 
 export const COURSE_META = {
   title: "AI Engineering for Java Developers",
+  description:
+    "A hands-on course that takes you from zero AI knowledge to shipping production-ready AI features with Spring AI. 9 modules, 41 posts, one real project.",
   url: "/courses/ai-for-java-developers",
+  startSlug: "ai-for-java-devs-why-now",
 } as const;
 
 export const COURSE_MODULES: CourseModule[] = [

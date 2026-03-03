@@ -1,0 +1,58 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+import { ALL_COURSES } from "@/data/courses/ai-for-java-developers";
+import { COURSE_MODULES, COURSE_POST_LIST } from "@/data/courses/ai-for-java-developers";
+
+// Build per-course stats (works as more courses are added to ALL_COURSES)
+const courseStats = ALL_COURSES.map(course => ({
+  ...course,
+  moduleCount: COURSE_MODULES.length,
+  publishedCount: COURSE_POST_LIST.filter(p => p.status === "published").length,
+  totalCount: course.posts.length,
+}));
+---
+
+<Layout title={`Courses | ${SITE.title}`} description="Free courses on Java, Spring AI, and backend engineering.">
+  <Header />
+  <Main pageTitle="Courses" pageDesc="Structured, hands-on courses — free to read, no sign-up required.">
+    <ul class="space-y-6 mt-2">
+      {courseStats.map(({ meta, moduleCount, publishedCount, totalCount }) => (
+        <li class="rounded-lg border border-border p-6 hover:border-accent/50 transition-colors">
+          <p class="mb-2 text-xs font-semibold tracking-widest uppercase text-accent">
+            Free Course
+          </p>
+          <a
+            href={meta.url}
+            class="text-xl font-semibold hover:text-accent transition-colors underline-offset-4 hover:underline decoration-dashed"
+          >
+            {meta.title}
+          </a>
+          <p class="mt-2 text-sm opacity-70 leading-relaxed">
+            {meta.description}
+          </p>
+          <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-sm">
+            <span class="flex items-center gap-1.5 opacity-70">
+              <span class="text-accent text-xs">◆</span>
+              {moduleCount} modules
+            </span>
+            <span class="flex items-center gap-1.5 opacity-70">
+              <span class="text-accent text-xs">◆</span>
+              {publishedCount} / {totalCount} posts published
+            </span>
+            <a
+              href={`/blog/${meta.startSlug}`}
+              class="ms-auto inline-flex items-center gap-1 text-accent font-medium hover:underline underline-offset-4 decoration-dashed"
+            >
+              Start course <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>
