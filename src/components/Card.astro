@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import { getPath } from "@/utils/getPath";
 import Datetime from "./Datetime.astro";
+import { ALL_COURSES } from "@/data/courses/ai-for-java-developers";
 
 type Props = {
   variant?: "h2" | "h3";
@@ -11,6 +12,11 @@ type Props = {
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
 const { title, description, ...props } = data;
+
+const course = ALL_COURSES.find(c => c.posts.some(p => p.slug === id));
+const postLabel = course
+  ? course.meta.url.replace("/courses/", "").replace("developers", "devs")
+  : "post";
 ---
 
 <li class="my-6">
@@ -28,6 +34,20 @@ const { title, description, ...props } = data;
       {title}
     </Heading>
   </a>
-  <Datetime {...props} />
+  <div class="flex items-center gap-x-2">
+    <Datetime {...props} />
+    {course ? (
+      <a
+        href={course.meta.url}
+        class="rounded border border-dashed border-foreground/40 px-1.5 py-0.5 text-xs opacity-70 hover:border-accent hover:text-accent hover:opacity-100"
+      >
+        {postLabel}
+      </a>
+    ) : (
+      <span class="rounded border border-dashed border-foreground/40 px-1.5 py-0.5 text-xs opacity-70">
+        {postLabel}
+      </span>
+    )}
+  </div>
   <p>{description}</p>
 </li>
