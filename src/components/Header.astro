@@ -46,12 +46,44 @@ const isActive = (path: string) => {
       href="/"
       class="absolute py-1 sm:static sm:my-auto"
     >
-      <img
-        src="/logo-web.png"
-        alt={SITE.title}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 370 84"
         height="40"
         class="h-10 w-auto"
-      />
+        role="img"
+        aria-label={SITE.title}
+      >
+        <!-- C-arc open-book icon -->
+        <path
+          class="logo-arc"
+          d="M42 0 C 18.8 0 0 18.8 0 42 C 0 65.2 18.8 84 42 84 C 55.6 84 67.8 77.8 75.8 68.2 L 67.1 63.8 C 61 70.2 52 74.2 42 74.2 C 24.2 74.2 9.8 59.8 9.8 42 C 9.8 24.2 24.2 9.8 42 9.8 C 50.4 9.8 58 13 63.6 18.2 L 72 10 C 64 3.8 53.6 0 42 0 Z"
+        />
+        <!-- Page lines -->
+        <g transform="translate(42, 2)">
+          <path
+            class="logo-lines"
+            stroke-width="2"
+            d="M4 2 L 14 2 M 6 12 L 20 12 L 20 14 L 6 14 L 6 12 Z M 6 22 L 26 22 L 26 24 L 6 24 L 6 22 Z M 6 32 L 32 32 L 32 34 L 6 34 L 6 32 Z M 6 42 L 32 42 L 32 44 L 6 44 L 6 42 Z M 6 52 L 26 52 L 26 54 L 6 54 L 6 52 Z M 6 62 L 20 62 L 20 64 L 6 64 L 6 62 Z M 6 72 L 14 72 M 32 32 L 40 32 L 40 34 L 32 34 L 32 32 Z M 32 42 L 40 42 L 40 44 L 32 44 L 32 42 Z"
+          />
+          <!-- Dots at right end of each line -->
+          <circle class="logo-dot" cx="20" cy="8"  r="4.5" stroke-width="2"/>
+          <circle class="logo-dot" cx="26" cy="18" r="4.5" stroke-width="2"/>
+          <circle class="logo-dot" cx="32" cy="28" r="4.5" stroke-width="2"/>
+          <circle class="logo-dot" cx="32" cy="38" r="4.5" stroke-width="2"/>
+          <circle class="logo-dot" cx="26" cy="48" r="4.5" stroke-width="2"/>
+          <circle class="logo-dot" cx="20" cy="58" r="4.5" stroke-width="2"/>
+        </g>
+        <!-- Wordmark -->
+        <text
+          x="100" y="60"
+          font-family="Verdana, Geneva, sans-serif"
+          font-size="64"
+          font-weight="bold"
+        >
+          <tspan class="logo-js">JS</tspan><tspan class="logo-blogs" font-weight="normal">Blogs</tspan>
+        </text>
+      </svg>
     </a>
     <nav
       id="nav-menu"
@@ -150,6 +182,22 @@ const isActive = (path: string) => {
     </nav>
   </div>
 </header>
+
+<style is:global>
+  /* Logo — light mode */
+  .logo-arc   { fill: #202a63; }
+  .logo-lines { fill: #202a63; stroke: #202a63; }
+  .logo-dot   { fill: #a7bf9c; stroke: #202a63; }
+  .logo-js    { fill: #202a63; }
+  .logo-blogs { fill: #666e75; }
+
+  /* Logo — dark mode */
+  [data-theme="dark"] .logo-arc   { fill: #75c88c; }
+  [data-theme="dark"] .logo-lines { fill: #75c88c; stroke: #75c88c; }
+  [data-theme="dark"] .logo-dot   { fill: #f29e5a; stroke: #75c88c; }
+  [data-theme="dark"] .logo-js    { fill: #ffffff; }
+  [data-theme="dark"] .logo-blogs { fill: rgba(255,255,255,0.8); }
+</style>
 
 <script>
   function toggleNav() {

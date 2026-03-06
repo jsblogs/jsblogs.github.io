@@ -60,6 +60,20 @@ public class PaymentConfig__BeanDefinitions {
 
 The result: GraalVM receives a fully analysable representation of your application. Spring Boot 4 improved this engine — it handles more conditional beans, produces smaller hint files, and integrates more cleanly with GraalVM 25's updated analysis capabilities.
 
+```mermaid
+flowchart LR
+    SRC["Your Spring Boot App<br/>@Configuration classes<br/>@Bean definitions"]
+    AOT["Spring AOT Engine<br/>build time"]
+    GVM["GraalVM<br/>native-image"]
+    BIN["Native Binary<br/>~80 MB, no JVM needed"]
+
+    SRC --> AOT
+    AOT -->|"generated Java sources"| GVM
+    AOT -->|"reflection hint files"| GVM
+    GVM --> BIN
+    BIN --> OUT["Startup: ~100 ms<br/>Memory: ~80 MB"]
+```
+
 ## Build setup
 
 **Requirements:**
@@ -125,6 +139,22 @@ These are representative figures for a mid-sized Spring Boot REST API (10–20 b
 | Peak throughput (sustained) | Higher (JIT kicks in) | Lower |
 | Binary / container size | ~300 MB (JVM included) | 60–100 MB |
 | Build time | 5–15 seconds | 5–15 minutes |
+
+```mermaid
+graph LR
+    subgraph jvm ["JVM mode"]
+        J1["Startup: 3–8 s"]
+        J2["Memory: 200–400 MB"]
+        J3["Peak throughput: Higher"]
+        J4["Debug tools: Full JFR, heap dumps"]
+    end
+    subgraph native ["Native image"]
+        N1["Startup: 50–150 ms ✓"]
+        N2["Memory: 50–120 MB ✓"]
+        N3["Peak throughput: Lower"]
+        N4["Debug tools: GDB, basic JFR only"]
+    end
+```
 
 The startup improvement is real and consistent — native image typically starts 20–60× faster than a JVM baseline. The memory reduction is also consistent: 2–4× lower resident set size.
 

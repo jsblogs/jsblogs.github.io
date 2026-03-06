@@ -16,6 +16,18 @@ This guide covers every major breakage area and a phase-by-phase plan that lets 
 
 ## Table of contents
 
+## Migration Roadmap
+
+```mermaid
+flowchart TD
+    A["Spring Boot 3.x"] --> B
+    B["Step 1: Upgrade to 3.5.x<br/>Fix deprecation warnings<br/>Run OpenRewrite recipe"] --> C
+    C["Step 2: Upgrade Java to 21<br/>Update JDK and CI toolchains"] --> D
+    D["Step 3: Upgrade to Spring Boot 4.0<br/>Add starter-classic shim<br/>Fix compilation errors"] --> E
+    E["Step 4: Fix runtime breakages<br/>Jackson, Testing, Config<br/>Batch, Hibernate, Security"] --> F
+    F["Spring Boot 4.x - Done"]
+```
+
 ## What changed at the platform level
 
 Spring Boot 4.0 raises the floor on everything your application runs on:
