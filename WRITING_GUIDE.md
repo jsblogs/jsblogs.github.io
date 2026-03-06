@@ -194,7 +194,93 @@ For Maven dependencies, show only the `<dependency>` block (not the entire POM):
 
 ---
 
-## 6. Images
+## 6. Diagrams
+
+Diagrams are rendered client-side using **Mermaid**. Use them to clarify architecture, flows, and comparisons that are hard to convey in prose.
+
+### Syntax
+
+Wrap the diagram definition in a fenced code block with the `mermaid` language identifier:
+
+````markdown
+```mermaid
+flowchart TD
+    A["Start"] --> B["Step 1"]
+    B --> C["Done"]
+```
+````
+
+### Supported diagram types
+
+| Type | Identifier | Best for |
+|---|---|---|
+| Flowchart | `flowchart TD` / `flowchart LR` | Pipelines, decision trees, migration paths |
+| Sequence | `sequenceDiagram` | API calls, auth flows, request/response cycles |
+| State | `stateDiagram-v2` | State machines, lifecycle phases |
+| Class | `classDiagram` | Object models, inheritance hierarchies |
+
+Use `flowchart TD` (top-down) for step-by-step processes and `flowchart LR` (left-right) for data flows between parallel components.
+
+### Line breaks in node labels
+
+Use `<br/>` for line breaks inside node labels — `\n` is not processed:
+
+```
+B["Step 1: Upgrade to 3.5.x<br/>Fix deprecation warnings"]   ✅
+B["Step 1: Upgrade to 3.5.x\nFix deprecation warnings"]      ❌
+```
+
+### Subgraph labels
+
+Keep subgraph labels **short**. Long labels overflow and overlap nodes in `LR` layout:
+
+```
+subgraph cg ["Consumer Group"]                              ✅
+subgraph cg ["Consumer Group — one partition per consumer"] ❌
+```
+
+Move the description to the surrounding paragraph text instead.
+
+### Avoid unicode special characters
+
+Mermaid's parser can choke on unicode symbols. Use plain ASCII alternatives:
+
+| Avoid | Use instead |
+|---|---|
+| ① ② ③ ④ | Step 1, Step 2… |
+| `·` (middle dot) | `,` or `/` |
+| `✓` `✗` | Done, Failed |
+| `→` `←` | Use Mermaid arrow syntax (`-->`) |
+
+### Critical: do not place diagrams under `## Table of contents`
+
+The blog uses `remark-toc` + `remark-collapse`, which **replaces all content** under a heading named `Table of contents` with auto-generated links. Any diagram placed there will be silently removed.
+
+Always put diagrams under their own descriptive heading:
+
+```markdown
+## Table of contents     ← auto-generates TOC links here (leave empty)
+
+## Migration Roadmap     ← put your diagram here
+```mermaid
+flowchart TD
+    ...
+```
+```
+
+### When to add a diagram
+
+Add a diagram when any of the following is true:
+- The concept involves **3+ steps** in a defined order (flowchart).
+- You're showing how **two or more systems communicate** (sequence diagram).
+- The content has a **state machine** with transitions (state diagram).
+- A table or paragraph would need more than 5 sentences to explain the same thing.
+
+Skip the diagram if the code example already makes the flow obvious.
+
+---
+
+## 7. Images
 
 ### Storage
 
@@ -229,7 +315,7 @@ Reference images with **root-relative paths** (no `public/` prefix):
 
 ---
 
-## 7. Links
+## 8. Links
 
 ### Internal Links
 
@@ -251,7 +337,7 @@ See the [official Lombok documentation](https://projectlombok.org/features/) for
 
 ---
 
-## 8. Formatting Conventions
+## 9. Formatting Conventions
 
 | Element           | Convention                                              |
 |-------------------|---------------------------------------------------------|
@@ -294,7 +380,7 @@ For color callouts in JSBlogs, use these reusable classes:
 
 ---
 
-## 9. Drafts
+## 10. Drafts
 
 - Set `draft: true` in frontmatter to hide a post from production.
 - Drafts are still built locally — use `npm run dev` to preview them.
@@ -302,7 +388,7 @@ For color callouts in JSBlogs, use these reusable classes:
 
 ---
 
-## 10. Pre-Publish Checklist
+## 11. Pre-Publish Checklist
 
 Before marking a post as non-draft, verify:
 
@@ -313,13 +399,14 @@ Before marking a post as non-draft, verify:
 - [ ] **Images are optimized** and stored in `public/images/[topic]/`.
 - [ ] **Links work** — internal links use `/blog/[slug]`, external links point to live pages.
 - [ ] **No broken embeds** — use inline code, not gist/external script embeds.
+- [ ] **Diagrams render correctly** — no unicode special chars, no `\n` in labels (use `<br/>`), subgraph labels are short, diagram is not placed under `## Table of contents`.
 - [ ] **Description is meaningful** — not just the title repeated; think SEO.
 - [ ] **Spell check done** — especially on class names and technical terms.
 - [ ] **Local build passes** — run `npm run build` with no errors.
 
 ---
 
-## 11. Build and Preview
+## 12. Build and Preview
 
 ```bash
 # Install dependencies
